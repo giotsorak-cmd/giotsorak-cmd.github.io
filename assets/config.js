@@ -279,7 +279,8 @@ window.COMFY = {
       fromPrice: 60,
       checkin: '15:00', checkout: '11:00',
       parking: {
-        el: 'Δωρεάν πάρκινγκ.', en: 'Free parking.', de: 'Kostenloser Parkplatz.', bg: 'Безплатен паркинг.', sr: 'Besplatan parking.', ru: 'Бесплатная парковка.',
+        el: 'Δωρεάν ιδιωτικό πάρκινγκ στον χώρο του καταλύματος.', en: 'Free private parking on site.', de: 'Kostenloser privater Parkplatz auf dem Grundstück.',
+        bg: 'Безплатен частен паркинг в имота.', sr: 'Besplatan privatni parking u okviru objekta.', ru: 'Бесплатная частная парковка на территории.',
       },
       amenities: ['balcony', 'wifi', 'ac', 'heating', 'tv', 'kitchen', 'coffee', 'microwave', 'dishwasher', 'washer', 'dryer', 'desk', 'linens', 'towels', 'toiletries', 'parking', 'elevator', 'pets', 'crib'],
       // Η πρώτη φωτογραφία είναι αυτή της αρχικής. Για κάθε NN.jpg υπάρχει και μικρότερο NN-s.jpg.
