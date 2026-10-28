@@ -1,0 +1,40 @@
+name: Εισαγωγή φωτογραφιών
+# Κατεβάζει φωτογραφίες από τη λίστα photo-import/<φάκελος>.txt (μία διεύθυνση ανά γραμμή)
+# στο img/<φάκελος>/ ως 01.jpg, 01-s.jpg, ... και σβήνει τη λίστα.
+on:
+  push:
+    paths: ['photo-import/*.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Λήψη
+        run: |
+          set -e
+          for list in photo-import/*.txt; do
+            [ -f "$list" ] || continue
+            name=$(basename "$list" .txt)
+            mkdir -p "img/$name"
+            n=0
+            while IFS= read -r url; do
+              url=$(echo "$url" | tr -d '\r' | xargs)
+              [ -z "$url" ] && continue
+              n=$((n+1)); f=$(printf '%02d' $n)
+              base="${url%%\?*}"
+              curl -fsSL -A 'Mozilla/5.0' -o "img/$name/$f.jpg" "$base?im_w=1440"
+              curl -fsSL -A 'Mozilla/5.0' -o "img/$name/$f-s.jpg" "$base?im_w=720"
+            done < "$list"
+            echo "$name: $n photos"
+            git rm -q "$list"
+          done
+      - name: Αποθήκευση
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A img photo-import
+          git commit -m 'Εισαγωγή φωτογραφιών' || exit 0
+          git push
