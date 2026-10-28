@@ -438,7 +438,7 @@ dialog.lightbox[open] { display: flex; flex-direction: column; }
 .or-direct { display: flex; align-items: center; gap: 12px; margin: 18px 0 12px; color: var(--muted); font-size: var(--step--1); }
 .or-direct::before, .or-direct::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .hint.center { text-align: center; margin-top: 6px; user-select: all; }
-.city-head h2 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); overflow-wrap: anywhere; }
+.city-head h2 { font-size: clamp(2rem, 2.6vw, 2.75rem); white-space: nowrap; }
 
 .hero-banner .credit { display: block; font-size: 0.66rem; color: #cfc6b4; margin-top: 2px; opacity: 0.85; }
 .hero-banner .credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
