@@ -564,7 +564,7 @@
     const dest = p.mapsQuery || L(p.address);
     const dirUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(dest) +
       (p.placeId ? '&destination_place_id=' + encodeURIComponent(p.placeId) : '');
-    const label = (n) => (n.metro ? t('metro', { s: L(n.metro) }) : t('place_' + n.place));
+    const label = (n) => (n.metro ? t('metro', { s: L(n.metro) }) : n.city ? L(n.city) : t('place_' + n.place));
     return h('section', { class: 'location' }, h('h2', {}, t('location')),
       h('dl', {},
         p.address ? [h('dt', {}, t('address')), h('dd', {}, L(p.address))] : null,
@@ -574,7 +574,7 @@
       staticMap(p, 'in-page') || mapEmbed(dest),
       p.nearby && p.nearby.length ? [
         h('ul', { class: 'nearby' }, p.nearby.map((n) => h('li', {}, h('span', {}, label(n)),
-          h('span', { class: 'walk' }, [n.meters ? fmtDist(n.meters) : null, t('walk', { m: n.walk })].filter(Boolean).join(' · '))))),
+          h('span', { class: 'walk' }, [n.meters ? fmtDist(n.meters) : null, n.drive ? t('drive', { m: n.drive }) : t('walk', { m: n.walk })].filter(Boolean).join(' · '))))),
         h('p', { class: 'hint' }, t('dist_note')),
       ] : null,
       p.airport ? h('div', { class: 'airport' }, h('h3', {}, t('airport_title')),

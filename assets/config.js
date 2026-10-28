@@ -273,6 +273,12 @@ window.COMFY = {
       placeId: 'ChIJwYJvIQDDWRMR594w0YiRvIA',
       mapsUrl: 'https://maps.app.goo.gl/9EQoVmKcsPJFKXEv9',
       mapCenter: [40.2629021, 21.5477052], // ο χάρτης φορτώνει ζωντανά από το OpenStreetMap
+      // Οδική απόσταση (μέτρα) και χρόνος με αυτοκίνητο (λεπτά), κατά προσέγγιση
+      nearby: [
+        { city: { el: 'Γρεβενά', en: 'Grevena', de: 'Grevena', bg: 'Гревена', sr: 'Grevena', ru: 'Гревена' }, meters: 28800, drive: 22 },
+        { city: { el: 'Κοζάνη', en: 'Kozani', de: 'Kozani', bg: 'Козани', sr: 'Kozani', ru: 'Козани' }, meters: 27300, drive: 25 },
+        { city: { el: 'Καστοριά', en: 'Kastoria', de: 'Kastoria', bg: 'Костур (Кастория)', sr: 'Kastorija', ru: 'Кастория' }, meters: 49500, drive: 36 },
+      ],
       reviews: [
         { name: 'Dimitris', source: 'google', score: 5, scale: 5, lang: 'el',
           text: 'Άψογο κατάλυμα, τίμιες παροχές, υπέροχοι ιδιοκτήτες. Πεντακάθαρο και πανέμορφο.' },
