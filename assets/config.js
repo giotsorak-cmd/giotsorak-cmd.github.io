@@ -221,9 +221,9 @@ window.COMFY = {
       checkin: '15:00', checkout: '11:00',
       floor: 5,
       parking: {
-        el: 'Δεν υπάρχει ιδιωτικό πάρκινγκ. Θέση βρίσκεται συνήθως στους γύρω δρόμους.', en: 'No private parking. Street parking is usually available nearby.',
-        de: 'Kein privater Parkplatz. In den umliegenden Straßen findet man meist einen Platz.', bg: 'Няма частен паркинг. Обикновено има място по околните улици.',
-        sr: 'Nema privatnog parkinga. Mesto se obično nađe u okolnim ulicama.', ru: 'Частной парковки нет. Место обычно находится на соседних улицах.',
+        el: 'Δεν υπάρχει ιδιωτικό πάρκινγκ. Θέση βρίσκεται συνήθως στους γύρω δρόμους, και κοντά υπάρχουν ιδιωτικά πάρκινγκ επί πληρωμή.', en: 'No private parking. Street parking is usually available nearby, and there are paid private car parks close by.',
+        de: 'Kein privater Parkplatz. In den umliegenden Straßen findet man meist einen Platz; in der Nähe gibt es auch kostenpflichtige Privatparkplätze.', bg: 'Няма частен паркинг. Обикновено има място по околните улици, а наблизо има и платени частни паркинги.',
+        sr: 'Nema privatnog parkinga. Mesto se obično nađe u okolnim ulicama, a u blizini ima i privatnih parkinga koji se plaćaju.', ru: 'Частной парковки нет. Место обычно находится на соседних улицах, а рядом есть платные частные парковки.',
       },
       amenities: ['balcony', 'wifi', 'ac', 'heating', 'tv', 'kitchen', 'microwave', 'washer', 'desk', 'linens', 'towels', 'bathrobes', 'toiletries', 'elevator', 'pets', 'crib'],
       // Η πρώτη φωτογραφία είναι αυτή της αρχικής. Για κάθε NN.jpg υπάρχει και μικρότερο NN-s.jpg.
