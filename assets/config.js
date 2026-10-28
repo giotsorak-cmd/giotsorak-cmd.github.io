@@ -27,9 +27,7 @@ window.COMFY = {
   // Μορφή: { src: 'img/hero/....jpg', caption: { el: '...', en: '...' }, credit: '' }
   heroPhotos: [
     {
-      city: 'thessaloniki', src: 'img/hero/thessaloniki.jpg', position: 'center 30%',
-      credit: 'C messier, CC BY-SA 4.0, via Wikimedia Commons',
-      creditUrl: 'https://commons.wikimedia.org/wiki/File:%CE%9B%CE%B5%CF%85%CE%BA%CF%8C%CF%82_%CE%A0%CF%8D%CF%81%CE%B3%CE%BF%CF%82_4014.jpg',
+      city: 'thessaloniki', src: 'img/hero/thessaloniki-aerial.jpg', position: 'center 55%', // δική μας φωτογραφία
       caption: { el: 'Θεσσαλονίκη · ο Λευκός Πύργος', en: 'Thessaloniki · the White Tower', de: 'Thessaloniki · der Weiße Turm', bg: 'Солун · Бялата кула', sr: 'Solun · Bela kula', ru: 'Салоники · Белая башня' },
     },
     {
