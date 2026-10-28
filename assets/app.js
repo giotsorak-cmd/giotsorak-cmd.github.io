@@ -396,7 +396,7 @@
     if (res && res.state === 'ok') note = h('p', { class: 'avail-note ok' }, t('available_for', { nights: nightsLabel(res.quote.nights), total: money(res.quote.total) }));
     else if (res && res.state === 'no') note = h('p', { class: 'avail-note no' }, t('unavailable_for'));
     else if (res && res.state === 'guests') note = h('p', { class: 'avail-note no' }, t('too_many_guests', { n: p.maxGuests }));
-    const mapImg = p.mapImageCard || p.mapImage;
+    const mapImg = p.mapImageCard || p.mapImage || (p.mapCenter ? 'osm' : null);
     return h('article', { class: `stay stay-card reveal${res && res.state !== 'ok' ? ' is-unavailable' : ''}${mapImg ? ' has-map' : ''}` },
       h('div', { class: 'stay-visuals' },
         h('a', { class: 'stay-media', href: link, tabindex: '-1', 'aria-hidden': 'true' }, photoOrPlaceholder(p, 0, true)),
@@ -546,7 +546,7 @@
   function reviewCard(r) {
     return (h('figure', { class: 'review' },
         h('div', { class: 'review-top' },
-          h('span', { class: 'review-score' }, r.scale === 10 ? `${r.score}/10` : `${r.score} ★`),
+          r.score ? h('span', { class: 'review-score' }, r.scale === 10 ? `${r.score}/10` : `${r.score} ★`) : null,
           h('span', { class: 'review-src' }, SOURCES[r.source] || ''),
           r.date ? h('time', { datetime: r.date }, fmtDate(r.date.length === 7 ? r.date + '-01' : r.date, { month: 'long', year: 'numeric' })) : null),
         r.title ? h('p', { class: 'review-title', lang: r.lang }, r.title) : null,
@@ -591,10 +591,28 @@
   };
   const PIN = '<svg viewBox="0 0 30 40" aria-hidden="true"><path d="M15 39s13-13.2 13-23.5A13 13 0 0 0 2 15.5C2 25.8 15 39 15 39z" fill="#0f0e0c"/><circle cx="15" cy="15.5" r="9.5" fill="#c9a45c"/><circle cx="15" cy="15.5" r="4" fill="#0f0e0c"/></svg>';
   // Χάρτης με καρφίτσα πάνω (η καρφίτσα είναι ξεχωριστή, ώστε ο χάρτης να έχει ήπια χρώματα)
+  // Ζωντανός χάρτης από πλακίδια OpenStreetMap, κεντραρισμένος στο p.mapCenter (χωρίς έτοιμη εικόνα)
+  function osmLayer(p) {
+    const [lat, lon] = p.mapCenter;
+    const z = p.mapZoom || 17, n = 2 ** z, r = lat * Math.PI / 180;
+    const x = (lon + 180) / 360 * n * 256;
+    const y = (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n * 256;
+    const tx0 = Math.floor(x / 256), ty0 = Math.floor(y / 256);
+    const layer = h('span', { class: 'osm-layer', role: 'img', 'aria-label': t('map_alt', { address: L(p.address) }) });
+    for (let dx = -3; dx <= 3; dx++) {
+      for (let dy = -2; dy <= 2; dy++) {
+        const tx = tx0 + dx, ty = ty0 + dy;
+        layer.append(h('img', { src: `https://tile.openstreetmap.org/${z}/${tx}/${ty}.png`, alt: '', loading: 'lazy',
+          style: `left:calc(50% + ${Math.round(tx * 256 - x)}px);top:calc(50% + ${Math.round(ty * 256 - y)}px)` }));
+      }
+    }
+    return layer;
+  }
+
   function mapTile(p, src, pin) {
     const [px, py] = pin || [50, 50];
     return h('a', { class: 'map-tile', href: mapsHref(p), target: '_blank', rel: 'noopener', 'aria-label': t('open_in_maps') + ': ' + p.name },
-      h('img', { src, alt: t('map_alt', { address: L(p.address) }), loading: 'lazy' }),
+      src === 'osm' ? osmLayer(p) : h('img', { src, alt: t('map_alt', { address: L(p.address) }), loading: 'lazy' }),
       h('span', { class: 'map-pin', style: `left:${px}%;top:${py}%`, html: PIN }),
       h('span', { class: 'map-label' }, h('b', {}, p.name), h('small', {}, L(p.address).split(',')[0]), h('span', {}, t('open_in_maps'))),
       h('small', { class: 'map-attr' }, '© OpenStreetMap'));
@@ -602,8 +620,8 @@
 
   // Χάρτης-εικόνα με την ακριβή θέση (OpenStreetMap). Πάτημα → Google Maps
   function staticMap(p, where) {
-    if (!p.mapImage) return null;
-    return h('figure', { class: `static-map ${where}` }, mapTile(p, p.mapImage, p.mapPin));
+    if (!p.mapImage && !p.mapCenter) return null;
+    return h('figure', { class: `static-map ${where}` }, mapTile(p, p.mapImage || 'osm', p.mapPin));
   }
 
   function mapEmbed(q) {

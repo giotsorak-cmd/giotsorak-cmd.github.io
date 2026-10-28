@@ -580,3 +580,8 @@ html, body { overflow-x: clip; }
 .pay-info h3 { font-family: var(--sans); font-weight: 600; font-size: var(--step-0); margin: 0 0 8px; }
 .pay-info ul { margin: 0; padding-left: 18px; font-size: var(--step--1); color: var(--muted); }
 .pay-info li { margin-bottom: 6px; }
+
+/* Ζωντανός χάρτης OpenStreetMap (καταλύματα χωρίς έτοιμη εικόνα χάρτη) */
+.osm-layer { position: absolute; inset: 0; display: block; overflow: hidden; background: #f2efe9; filter: grayscale(0.85) sepia(0.18) contrast(0.95) brightness(1.04); transition: filter 0.3s ease; }
+.map-tile:hover .osm-layer { filter: grayscale(0.4) sepia(0.1); }
+.map-tile .osm-layer img { position: absolute; width: 256px; height: 256px; max-width: none; aspect-ratio: auto; object-fit: fill; filter: none; transition: none; }
