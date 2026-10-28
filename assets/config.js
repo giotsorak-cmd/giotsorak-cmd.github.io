@@ -129,7 +129,7 @@ window.COMFY = {
         { place: 'kamara', meters: 1600, walk: 20 },
         { place: 'agiasofia', meters: 1700, walk: 21 },
       ],
-      amenities: ['view', 'balcony', 'wifi', 'ac', 'heating', 'fireplace', 'tv', 'kitchen', 'coffee', 'microwave', 'washer', 'rainshower', 'linens', 'towels', 'bathrobes', 'toiletries', 'dental', 'slippers', 'welcome', 'sofabed', 'desk', 'elevator', 'pets', 'crib', 'selfcheckin'],
+      amenities: ['view', 'balcony', 'wifi', 'ac', 'heating', 'fireplace', 'tv', 'kitchen', 'coffee', 'filtercoffee', 'microwave', 'washer', 'rainshower', 'linens', 'towels', 'bathrobes', 'toiletries', 'dental', 'slippers', 'welcome', 'sofabed', 'desk', 'elevator', 'pets', 'crib', 'selfcheckin'],
       // Η πρώτη φωτογραφία είναι αυτή της αρχικής. Για κάθε NN.jpg υπάρχει και μικρότερο NN-s.jpg.
       photos: Array.from({ length: 40 }, (_, i) => `img/panoramic/${String(i + 1).padStart(2, '0')}.jpg`),
       ama: '00003728235',
@@ -401,7 +401,7 @@ window.COMFY = {
         de: 'Kostenlose Parkplätze an der Straße und ein kostenloser öffentlicher Parkplatz in der Nähe.', bg: 'Безплатно паркиране на улицата и безплатен обществен паркинг наблизо.',
         sr: 'Besplatan parking na ulici i besplatan javni parking u blizini.', ru: 'Бесплатная парковка на улице и бесплатная общественная стоянка рядом.',
       },
-      amenities: ['wifi', 'ac', 'heating', 'tv', 'kitchen', 'coffee', 'microwave', 'washer', 'sofabed', 'linens', 'towels', 'toiletries', 'welcome', 'parking', 'pets', 'crib'],
+      amenities: ['wifi', 'ac', 'heating', 'tv', 'kitchen', 'coffee', 'filtercoffee', 'microwave', 'washer', 'sofabed', 'linens', 'towels', 'toiletries', 'welcome', 'parking', 'pets', 'crib'],
       // Η πρώτη φωτογραφία είναι αυτή της αρχικής. Για κάθε NN.jpg υπάρχει και μικρότερο NN-s.jpg.
       photos: Array.from({ length: 13 }, (_, i) => `img/siatista-guesthouse/${String(i + 1).padStart(2, '0')}.jpg`),
       ama: '',
