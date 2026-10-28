@@ -383,9 +383,9 @@ window.COMFY = {
       name: 'Guest House Siatista',
       area: { el: 'Σιάτιστα, Κοζάνη', en: 'Siatista, Kozani', de: 'Siatista, Kozani', bg: 'Сятища, Козани', sr: 'Sjatista, Kozani', ru: 'Сьятиста, Козани' },
       tagline: {
-        el: 'Ευρύχωρο σπίτι 110 τ.μ. για έως 8 άτομα, δίπλα στην πλατεία.', en: 'A spacious 110 m² home for up to 8 guests, next to the square.',
-        de: 'Geräumiges Haus mit 110 m² für bis zu 8 Gäste, direkt am Platz.', bg: 'Просторна къща от 110 м² за до 8 души, до площада.',
-        sr: 'Prostrana kuća od 110 m² za do 8 osoba, pored trga.', ru: 'Просторный дом 110 м² для 8 гостей, рядом с площадью.',
+        el: 'Ευρύχωρο σπίτι 110 τ.μ., δίπλα στην πλατεία.', en: 'A spacious 110 m² home, next to the square.',
+        de: 'Geräumiges Haus mit 110 m², direkt am Platz.', bg: 'Просторна къща от 110 м², до площада.',
+        sr: 'Prostrana kuća od 110 m², pored trga.', ru: 'Просторный дом 110 м², рядом с площадью.',
       },
       description: {
         el: 'Ευρύχωρο σπίτι 110 τ.μ. στο κέντρο της Σιάτιστας, δίπλα στην πλατεία, με εστιατόρια, καφετέριες και φούρνο σε λίγα βήματα. Ιδανικό για οικογένειες και παρέες.\n\nΜεγάλο σαλόνι με παραδοσιακά ξύλινα έπιπλα, καναπέ που ανοίγει σε κρεβάτι, μεγάλη τηλεόραση, κλιματισμό και σκάκι για τα βράδια. Δίπλα, η τραπεζαρία και η πλήρως εξοπλισμένη κουζίνα με φούρνο, εστίες, ψυγείο, φούρνο μικροκυμάτων και καφετιέρα.\n\nΤρία υπνοδωμάτια με τηλεόραση: δύο με διπλό κρεβάτι, ένα με δύο μονά κρεβάτια και πολυθρόνα που ανοίγει σε κρεβάτι.\n\nΜεγάλο μπάνιο με μπανιέρα, πλυντήριο ρούχων, πετσέτες και προϊόντα περιποίησης.',
@@ -445,12 +445,12 @@ window.COMFY = {
   // Κανόνες — εμφανίζονται στη σελίδα Όρων και στη σελίδα κάθε καταλύματος
   policies: {
     house: {
-      el: 'Τα κατοικίδια είναι ευπρόσδεκτα. Το κάπνισμα επιτρέπεται μόνο στο μπαλκόνι, όχι μέσα στο σπίτι. Δεν επιτρέπονται πάρτι και εκδηλώσεις. Ώρες κοινής ησυχίας 23:00–08:00. Βρεφικό παρκοκρέβατο διαθέσιμο δωρεάν: γράψτε μας στο μήνυμα της κράτησης.',
-      en: 'Pets are welcome. Smoking is allowed only on the balcony, not indoors. No parties or events. Quiet hours 23:00–08:00. A baby travel cot is available free of charge: mention it in your booking message.',
-      de: 'Haustiere sind willkommen. Rauchen ist nur auf dem Balkon erlaubt, nicht in der Wohnung. Keine Partys oder Veranstaltungen. Nachtruhe 23:00–08:00 Uhr. Ein Babyreisebett steht kostenlos zur Verfügung: Geben Sie es in Ihrer Buchungsnachricht an.',
-      bg: 'Домашните любимци са добре дошли. Пушенето е разрешено само на балкона, не вътре. Без партита и събития. Тишина от 23:00 до 08:00. Бебешка кошара се предоставя безплатно: споменете го в съобщението към резервацията.',
-      sr: 'Kućni ljubimci su dobrodošli. Pušenje je dozvoljeno samo na balkonu, ne unutra. Zabave i događaji nisu dozvoljeni. Tišina od 23:00 do 08:00. Bebi krevetac je besplatno na raspolaganju: navedite to u poruci uz rezervaciju.',
-      ru: 'Можно с домашними животными. Курить можно только на балконе, не в помещении. Вечеринки и мероприятия запрещены. Тишина с 23:00 до 08:00. Детская кроватка предоставляется бесплатно: укажите это в сообщении к бронированию.',
+      el: 'Κατοικίδια γίνονται δεκτά κατόπιν αιτήματος. Το κάπνισμα επιτρέπεται μόνο στο μπαλκόνι, όχι μέσα στο σπίτι. Δεν επιτρέπονται πάρτι και εκδηλώσεις. Ώρες κοινής ησυχίας 23:00–08:00. Βρεφικό παρκοκρέβατο διαθέσιμο δωρεάν: γράψτε μας στο μήνυμα της κράτησης.',
+      en: 'Pets are allowed on request. Smoking is allowed only on the balcony, not indoors. No parties or events. Quiet hours 23:00–08:00. A baby travel cot is available free of charge: mention it in your booking message.',
+      de: 'Haustiere sind auf Anfrage erlaubt. Rauchen ist nur auf dem Balkon erlaubt, nicht in der Wohnung. Keine Partys oder Veranstaltungen. Nachtruhe 23:00–08:00 Uhr. Ein Babyreisebett steht kostenlos zur Verfügung: Geben Sie es in Ihrer Buchungsnachricht an.',
+      bg: 'Домашни любимци се допускат при поискване. Пушенето е разрешено само на балкона, не вътре. Без партита и събития. Тишина от 23:00 до 08:00. Бебешка кошара се предоставя безплатно: споменете го в съобщението към резервацията.',
+      sr: 'Kućni ljubimci su dozvoljeni na zahtev. Pušenje je dozvoljeno samo na balkonu, ne unutra. Zabave i događaji nisu dozvoljeni. Tišina od 23:00 do 08:00. Bebi krevetac je besplatno na raspolaganju: navedite to u poruci uz rezervaciju.',
+      ru: 'Проживание с домашними животными — по запросу. Курить можно только на балконе, не в помещении. Вечеринки и мероприятия запрещены. Тишина с 23:00 до 08:00. Детская кроватка предоставляется бесплатно: укажите это в сообщении к бронированию.',
     },
   },
 };

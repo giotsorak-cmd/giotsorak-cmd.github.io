@@ -14,6 +14,8 @@
   // Εμφάνιση τιμής «από … / νύχτα» (το config έχει showPrices: false)
   const PRICES = C.showPrices !== false;
   const qs = new URLSearchParams(location.search);
+  // Κάθε κατάλυμα έχει δική του σελίδα (π.χ. gg-apartment.html), για σωστή προεπισκόπηση όταν μοιράζεται το link
+  const stayPage = (p) => p.name.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.html';
   const page = document.body.dataset.page;
 
   // ─── Γλώσσα ───
@@ -171,7 +173,7 @@
               instagramLink(false) ? h('li', {}, instagramLink(false)) : null,
             )),
           h('div', {}, h('h4', {}, t('nav_stays')),
-            h('ul', {}, visible.map((p) => h('li', {}, h('a', { href: withLang(`stay.html?id=${p.id}`) }, p.name)))),
+            h('ul', {}, visible.map((p) => h('li', {}, h('a', { href: withLang(stayPage(p)) }, p.name)))),
             C.termsPage ? h('p', { style: 'margin-top:12px' }, h('a', { href: withLang('terms.html') }, t('terms_title'))) : null),
         ),
       );
@@ -234,7 +236,7 @@
 
   // ─── Αρχική ───
   function initHome() {
-    document.title = `${C.brand} — ${t('hero_title')}`;
+    document.title = `${C.brand} — ${t('site_title')}`;
     $('#hero-title').textContent = t('hero_title');
     $('#hero-lead').textContent = t('hero_lead');
     const heroPhotos = (C.heroPhotos || (C.heroPhoto ? [{ src: C.heroPhoto }] : [])).filter((x) => x && x.src);
@@ -390,8 +392,8 @@
   }
 
   function stayRow(p, res, search) {
-    let link = `stay.html?id=${p.id}`;
-    if (search) link += `&ci=${search.checkin}&co=${search.checkout}&g=${search.guests}`;
+    let link = stayPage(p);
+    if (search) link += `?ci=${search.checkin}&co=${search.checkout}&g=${search.guests}`;
     link = withLang(link);
     let note = null;
     if (res && res.state === 'ok') note = h('p', { class: 'avail-note ok' }, t('available_for', { nights: nightsLabel(res.quote.nights), total: money(res.quote.total) }));
@@ -417,7 +419,7 @@
 
   // ─── Σελίδα καταλύματος ───
   function initStay() {
-    const p = propById(qs.get('id'));
+    const p = propById(qs.get('id') || document.body.dataset.stay);
     if (!p) { location.replace(withLang('index.html')); return; }
     document.title = `${p.name} — ${C.brand}`;
     const city = C.cities.find((c) => c.id === p.city);

@@ -585,3 +585,15 @@ html, body { overflow-x: clip; }
 .osm-layer { position: absolute; inset: 0; display: block; overflow: hidden; background: #f2efe9; filter: grayscale(0.85) sepia(0.18) contrast(0.95) brightness(1.04); transition: filter 0.3s ease; }
 .map-tile:hover .osm-layer { filter: grayscale(0.4) sepia(0.1); }
 .map-tile .osm-layer img { position: absolute; width: 256px; height: 256px; max-width: none; aspect-ratio: auto; object-fit: fill; filter: none; transition: none; }
+
+/* Τηλέφωνα σε μία γραμμή */
+.phone-row .phone-call { white-space: nowrap; }
+@media (max-width: 420px) { .phone-row.big .phone-call { font-size: 0.95rem; padding-left: 10px; padding-right: 10px; } }
+
+/* Κινητό: η κράτηση αμέσως μετά την περιγραφή */
+@media (max-width: 960px) {
+  .prop-body .prop-main { display: contents; }
+  .prop-main > section:first-child { order: 1; }
+  .prop-body .book { order: 2; position: static; margin-bottom: 40px; }
+  .prop-main > section:not(:first-child) { order: 3; }
+}
