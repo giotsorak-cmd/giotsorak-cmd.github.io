@@ -580,7 +580,7 @@
       ] : null,
       p.airport ? h('div', { class: 'airport' }, h('h3', {}, t('airport_title')),
         h('ul', {}, h('li', {}, t('airport_taxi')), h('li', {}, t('airport_bus'))),
-        h('p', {}, t('airport_tip')), h('p', { class: 'hint' }, t('airport_note'))) : null,
+        h('p', { class: 'hint' }, t('airport_note'))) : null,
     );
   }
 
