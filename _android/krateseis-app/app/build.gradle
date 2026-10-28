@@ -1,0 +1,14 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'gr.comfystay.krateseis'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'gr.comfystay.krateseis'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+}

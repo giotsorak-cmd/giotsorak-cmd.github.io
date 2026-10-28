@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#eef1f4">
+<title>Κρατήσεις ComfyStay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one-column phone ledger — sticky filter header, month-grouped booking cards, bottom tab bar, full-screen edit sheet */
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --surface-2:#f6f8fa; --line:#dde3e9;
+  --fg:#16202b; --muted:#5d6b7a; --accent:#14507a; --accent-ink:#ffffff; --accent-soft:#e1ecf5;
+  --booking:#1f5fbf; --booking-soft:#e3ecfa; --airbnb:#c8384f; --airbnb-soft:#fbe6ea;
+  --direct:#23805a; --direct-soft:#e1f2ea; --warn:#a8650b; --warn-soft:#fcf0dc; --danger:#b3261e;
+  --font:"Commissioner",system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f151b; --surface:#18212a; --surface-2:#1e2833; --line:#2b3743;
+  --fg:#e6edf3; --muted:#93a2b1; --accent:#7fb6e3; --accent-ink:#0b1a26; --accent-soft:#1d3346;
+  --booking:#82aef0; --booking-soft:#1c2b44; --airbnb:#f0899a; --airbnb-soft:#3d1f27;
+  --direct:#6fcf9f; --direct-soft:#173327; --warn:#f0b75e; --warn-soft:#3a2b14; --danger:#f2a29c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --surface:#18212a; --surface-2:#1e2833; --line:#2b3743;
+  --fg:#e6edf3; --muted:#93a2b1; --accent:#7fb6e3; --accent-ink:#0b1a26; --accent-soft:#1d3346;
+  --booking:#82aef0; --booking-soft:#1c2b44; --airbnb:#f0899a; --airbnb-soft:#3d1f27;
+  --direct:#6fcf9f; --direct-soft:#173327; --warn:#f0b75e; --warn-soft:#3a2b14; --danger:#f2a29c; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.4;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding-block:12px 8px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.brand h1{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em}
+.brand small{color:var(--muted);font-size:12px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-block:10px 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+main{padding-block:12px 120px}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.search{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px}
+.seg{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px;flex:none}
+.seg button{border:0;background:transparent;border-radius:7px;padding:6px 10px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+
+.month{margin-top:18px}
+.month-h{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px 6px}
+.month-h h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.month-h span{font-size:13px;color:var(--muted)}
+.month-h b{color:var(--fg)}
+.list{display:flex;flex-direction:column;gap:8px}
+
+.card{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pc)}
+.card.booking{--pc:var(--booking)} .card.airbnb{--pc:var(--airbnb)} .card.direct{--pc:var(--direct)}
+.card.cancelled{opacity:.6}
+.card.cancelled .dates{text-decoration:line-through}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.dates{font-weight:700;font-size:15px}
+.dates .n{font-weight:500;color:var(--muted);font-size:13px;margin-left:6px}
+.amt{font-weight:800;font-size:17px;white-space:nowrap}
+.who{margin-top:3px;display:flex;gap:8px;flex-wrap:wrap;align-items:baseline;min-width:0}
+.who .name{font-weight:600;overflow-wrap:anywhere}
+.who .meta{color:var(--muted);font-size:13px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:12px;font-weight:600;border-radius:6px;padding:2px 8px;background:var(--surface-2);color:var(--muted)}
+.tag.booking{background:var(--booking-soft);color:var(--booking)}
+.tag.airbnb{background:var(--airbnb-soft);color:var(--airbnb)}
+.tag.direct{background:var(--direct-soft);color:var(--direct)}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.tag.ok{background:var(--direct-soft);color:var(--direct)}
+.tag.bad{background:var(--airbnb-soft);color:var(--danger)}
+
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:28px 18px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--fg);font-size:16px;margin-bottom:4px}
+
+/* income */
+.yearbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.yearbar button{border:1px solid var(--line);background:var(--surface);border-radius:10px;width:40px;height:36px;font-size:18px}
+.yearbar strong{font-size:18px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.kpi.big{grid-column:1/-1;background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.kpi label{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+.kpi .v{font-size:22px;font-weight:800;margin-top:2px}
+.kpi.big .v{font-size:32px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-top:12px}
+.panel h3{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.bars{display:grid;grid-template-columns:auto 1fr auto;gap:7px 10px;align-items:center;font-size:14px}
+.bars .lbl{color:var(--muted);white-space:nowrap}
+.bars .track{display:block;height:10px;background:var(--surface-2);border-radius:5px;overflow:hidden;min-width:0}
+.bars .fill{display:block;height:100%;background:var(--accent);border-radius:5px}
+.bars .fill.booking{background:var(--booking)} .bars .fill.airbnb{background:var(--airbnb)} .bars .fill.direct{background:var(--direct)}
+.bars .val{text-align:right;font-weight:700;white-space:nowrap}
+.owed{display:flex;flex-direction:column;gap:2px}
+.owed button{display:flex;justify-content:space-between;gap:10px;border:0;border-top:1px solid var(--line);background:transparent;padding:10px 0;text-align:left;width:100%}
+.owed button:first-child{border-top:0}
+.owed .s{color:var(--muted);font-size:13px}
+.export p{margin:0 0 12px;color:var(--muted);font-size:14px;max-width:60ch}
+.export p b{color:var(--fg)}
+.export .s{margin-top:10px;font-size:14px;color:var(--muted)}
+
+/* tabbar + fab */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+nav.tabs .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr}
+nav.tabs button{border:0;background:transparent;padding:12px 8px 14px;font-weight:700;font-size:14px;color:var(--muted)}
+nav.tabs button[aria-current="page"]{color:var(--accent)}
+.fab{position:fixed;z-index:21;right:max(16px,calc(env(safe-area-inset-right,0px) + 16px));bottom:calc(env(safe-area-inset-bottom,0px) + 64px);border:0;background:var(--accent);color:var(--accent-ink);border-radius:16px;padding:14px 18px;font-weight:800;font-size:15px;box-shadow:0 6px 18px rgb(0 0 0 / .22)}
+
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:40;background:var(--bg);overflow-y:auto;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet-h{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line)}
+.sheet-h .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:10px}
+.sheet-h h2{margin:0;font-size:17px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--danger)}
+.btn.danger.armed{background:var(--danger);border-color:var(--danger);color:var(--surface)}
+form{display:flex;flex-direction:column;gap:14px;padding-block:16px 40px}
+.f label{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.f input,.f select,.f textarea{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 12px;min-height:44px}
+.f textarea{min-height:70px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two>*{min-width:0}
+.nights{font-size:14px;color:var(--muted);margin-top:-4px}
+.nights b{color:var(--fg)}
+.plat{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.plat button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 4px;font-weight:700;color:var(--muted)}
+.plat button[aria-pressed="true"][data-p="booking"]{background:var(--booking-soft);border-color:var(--booking);color:var(--booking)}
+.plat button[aria-pressed="true"][data-p="airbnb"]{background:var(--airbnb-soft);border-color:var(--airbnb);color:var(--airbnb)}
+.plat button[aria-pressed="true"][data-p="direct"]{background:var(--direct-soft);border-color:var(--direct);color:var(--direct)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:12px}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:600}
+.toggle input{width:22px;height:22px;accent-color:var(--accent)}
+.balance{font-size:14px;color:var(--muted)}
+.balance b{color:var(--fg)}
+.warnbox{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:14px;font-weight:600}
+.err{color:var(--danger);font-size:14px;font-weight:600}
+.phone-row{display:flex;gap:6px}
+.phone-row input{flex:1;min-width:0}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden;min-height:44px}
+.stepper button{border:0;background:transparent;width:44px;height:44px;font-size:20px;font-weight:700;color:var(--accent)}
+.stepper input{border:0;text-align:center;min-width:0;flex:1;border-radius:0;padding:0;min-height:44px;background:transparent}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 128px);z-index:50;background:var(--fg);color:var(--bg);border-radius:10px;padding:10px 16px;font-weight:600;font-size:14px;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(16px);opacity:.4}}}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0}
+.login{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
+.login form{width:100%;max-width:360px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px 18px;gap:12px}
+.login h2{margin:0;font-size:22px;font-weight:800}
+.login p{margin:0;color:var(--muted);font-size:14px}
+.brand .acts{display:flex;align-items:baseline;gap:10px}
+.linkbtn{border:0;background:none;color:var(--accent);font-weight:700;font-size:12px;padding:0}
+.export .row2{display:flex;gap:8px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="top" lang="el"><div class="wrap">
+  <div class="brand"><h1>Κρατήσεις</h1><div class="acts"><small id="status">Φόρτωση…</small><button class="linkbtn" id="logout" hidden>Αποσύνδεση</button></div></div>
+  <div class="chips" id="chips" role="group" aria-label="Κατάλυμα"></div>
+</div></header>
+
+<main class="wrap" lang="el">
+  <section id="v-list">
+    <div class="toolbar">
+      <input id="q" class="search" type="search" placeholder="Όνομα ή τηλέφωνο" autocomplete="off">
+      <div class="seg" role="group" aria-label="Εμφάνιση">
+        <button id="m-up" aria-pressed="true">Επόμενες</button>
+        <button id="m-all" aria-pressed="false">Όλες</button>
+      </div>
+    </div>
+    <div id="bookings"><div class="empty"><b>Φόρτωση κρατήσεων…</b>Οι κρατήσεις σου θα εμφανιστούν εδώ, ομαδοποιημένες ανά μήνα. Αν δεν έχεις καμία, πάτα «+ Νέα κράτηση» ή «Εισαγωγή κρατήσεων» στα Έσοδα.</div></div>
+  </section>
+
+  <section id="v-income" hidden>
+    <div class="yearbar"><button id="y-prev" aria-label="Προηγούμενο έτος">‹</button><strong id="y-lbl" class="num">2026</strong><button id="y-next" aria-label="Επόμενο έτος">›</button></div>
+    <div id="income"></div>
+    <div class="panel export"><h3>Εξαγωγή σε Excel</h3>
+      <p class="s">Ένα αρχείο για όλο το <b id="x-year" class="num">2026</b>: φύλλο σύνοψης και ένα φύλλο ανά κατάλυμα, με τις ίδιες στήλες που κρατάς στο δικό σου Excel.</p>
+      <div class="row2"><button class="btn primary" id="x-btn" type="button">Λήψη Excel <span id="x-year2" class="num">2026</span></button>
+      <button class="btn" id="i-btn" type="button">Εισαγωγή κρατήσεων</button><input id="i-file" type="file" accept=".json,application/json" hidden></div>
+      <div class="s" id="x-msg" hidden></div>
+    </div>
+  </section>
+</main>
+
+<button class="fab" id="fab">+ Νέα κράτηση</button>
+<nav class="tabs" lang="el"><div class="in">
+  <button id="t-list" aria-current="page">Κρατήσεις</button>
+  <button id="t-income">Έσοδα</button>
+</div></nav>
+
+<div class="sheet" id="sheet" lang="el" hidden role="dialog" aria-modal="true" aria-labelledby="s-title">
+  <div class="sheet-h"><div class="wrap">
+    <button class="btn" id="s-cancel" type="button">Άκυρο</button>
+    <h2 id="s-title">Νέα κράτηση</h2>
+    <button class="btn primary" id="s-save" type="button">Αποθήκευση</button>
+  </div></div>
+  <div class="wrap">
+    <form id="form" novalidate>
+      <div class="f"><label for="f-prop">Κατάλυμα</label><select id="f-prop"></select></div>
+      <div class="two">
+        <div class="f"><label for="f-in">Check in</label><input id="f-in" type="date" required></div>
+        <div class="f"><label for="f-out">Check out</label><input id="f-out" type="date" required></div>
+      </div>
+      <div class="nights" id="f-nights">Διάλεξε ημερομηνίες</div>
+      <div id="f-overlap" class="warnbox" hidden></div>
+      <div class="two">
+        <div class="f"><label for="f-guests">Άτομα</label>
+          <div class="stepper"><button type="button" id="g-minus" aria-label="Λιγότερα άτομα">−</button><input id="f-guests" type="number" inputmode="numeric" min="1" max="20"><button type="button" id="g-plus" aria-label="Περισσότερα άτομα">+</button></div>
+        </div>
+        <div class="f"><label for="f-amount">Έσοδα (€)</label><input id="f-amount" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0"></div>
+      </div>
+      <div class="f"><label for="f-name">Όνομα</label><input id="f-name" type="text" autocomplete="off" placeholder="Όνομα επισκέπτη"></div>
+      <div class="f"><label for="f-phone">Τηλέφωνο</label>
+        <div class="phone-row"><input id="f-phone" type="tel" autocomplete="off" placeholder="69…"><a class="btn" id="f-call" href="#" hidden>Κλήση</a></div>
+      </div>
+      <div class="f"><label>Πλατφόρμα</label>
+        <div class="plat" role="group" aria-label="Πλατφόρμα">
+          <button type="button" data-p="booking" aria-pressed="false">Booking</button>
+          <button type="button" data-p="airbnb" aria-pressed="false">Airbnb</button>
+          <button type="button" data-p="direct" aria-pressed="false">Εκτός</button>
+        </div>
+      </div>
+      <div class="box" id="f-depbox" hidden>
+        <label class="toggle" for="f-dep">Πήρα προκαταβολή <input id="f-dep" type="checkbox"></label>
+        <div class="f" id="f-depamt-w" hidden><label for="f-depamt">Ποσό προκαταβολής (€)</label><input id="f-depamt" type="number" inputmode="decimal" step="0.01" min="0" placeholder="0"></div>
+        <label class="toggle" for="f-paid">Εξοφλήθηκε όλο το ποσό <input id="f-paid" type="checkbox"></label>
+        <div class="balance" id="f-balance"></div>
+      </div>
+      <div class="f"><label for="f-notes">Σημειώσεις</label><textarea id="f-notes" placeholder="π.χ. άφιξη αργά, κατοικίδιο, τιμολόγιο"></textarea></div>
+      <label class="toggle box" for="f-canc">Ακυρωμένη κράτηση <input id="f-canc" type="checkbox"></label>
+      <div class="err" id="f-err" hidden></div>
+      <button type="button" class="btn danger" id="f-del" hidden>Διαγραφή κράτησης</button>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+<div class="login" id="login" hidden lang="el">
+  <form id="l-form" novalidate>
+    <h2>Κρατήσεις</h2>
+    <p>Σύνδεση με τον ίδιο λογαριασμό που έχεις στο Ημερολόγιο Καταλυμάτων.</p>
+    <div class="f"><label for="l-email">Email</label><input id="l-email" type="email" autocomplete="username" required></div>
+    <div class="f"><label for="l-pass">Κωδικός</label><input id="l-pass" type="password" autocomplete="current-password" required></div>
+    <div class="err" id="l-err" hidden></div>
+    <button class="btn primary" type="submit" id="l-go">Σύνδεση</button>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/firebase@10.13.0/firebase-app-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@10.13.0/firebase-auth-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@10.13.0/firebase-database-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+document.documentElement.lang="el";
+const PROPS=[
+  {k:"VIEW",n:"Panoramic View"},
+  {k:"GUEST",n:"Guest House Siatista"},
+  {k:"SUITE",n:"Suite Siatista"},
+  {k:"PILEA",n:"Pilea Comfy Home"},
+  {k:"G&G",n:"G&G Apartment"}
+];
+const PNAME=Object.fromEntries(PROPS.map(p=>[p.k,p.n]));
+const PLAT={booking:"Booking",airbnb:"Airbnb",direct:"Εκτός"};
+const MONTHS=["Ιανουάριος","Φεβρουάριος","Μάρτιος","Απρίλιος","Μάιος","Ιούνιος","Ιούλιος","Αύγουστος","Σεπτέμβριος","Οκτώβριος","Νοέμβριος","Δεκέμβριος"];
+const MSH=["Ιαν","Φεβ","Μαρ","Απρ","Μαΐ","Ιουν","Ιουλ","Αυγ","Σεπ","Οκτ","Νοε","Δεκ"];
+const MUP=["ΙΑΝΟΥΑΡΙΟΣ","ΦΕΒΡΟΥΑΡΙΟΣ","ΜΑΡΤΙΟΣ","ΑΠΡΙΛΙΟΣ","ΜΑΙΟΣ","ΙΟΥΝΙΟΣ","ΙΟΥΛΙΟΣ","ΑΥΓΟΥΣΤΟΣ","ΣΕΠΤΕΜΒΡΙΟΣ","ΟΚΤΩΒΡΙΟΣ","ΝΟΕΜΒΡΙΟΣ","ΔΕΚΕΜΒΡΙΟΣ"];
+const DAYS=["Κυρ","Δευ","Τρι","Τετ","Πέμ","Παρ","Σάβ"];
+const $=id=>document.getElementById(id);
+const state={rows:[],loaded:false,prop:"ALL",mode:"up",q:"",year:new Date().getFullYear(),view:"list"};
+let db=null, col=null;
+try{const s=localStorage.getItem("kr-prop");if(s)state.prop=s;}catch(e){}
+
+const eur=v=>(Math.round((+v||0)*100)/100).toLocaleString("el-GR",{minimumFractionDigits:0,maximumFractionDigits:2})+" €";
+const pd=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const nightsOf=(a,b)=>(!a||!b)?0:Math.round((pd(b)-pd(a))/864e5);
+const todayIso=()=>iso(new Date());
+const fmtD=s=>{const d=pd(s);return DAYS[d.getDay()]+" "+d.getDate()+" "+MSH[d.getMonth()]};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toast(t){const el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2400)}
+
+/* chips */
+function renderChips(){
+  const all=[{k:"ALL",n:"Όλα"},...PROPS];
+  $("chips").innerHTML=all.map(p=>`<button class="chip" data-k="${esc(p.k)}" aria-pressed="${state.prop===p.k}">${esc(p.n)}</button>`).join("");
+}
+$("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;state.prop=b.dataset.k;try{localStorage.setItem("kr-prop",state.prop)}catch(e){}renderChips();render()});
+
+function filtered(){
+  return state.rows.filter(r=>state.prop==="ALL"||r.property===state.prop);
+}
+function depInfo(r){
+  if(r.platform!=="direct")return null;
+  const dep=r.depositPaid?(+r.depositAmount||0):0;
+  const bal=Math.max(0,(+r.amount||0)-dep);
+  return {dep,bal};
+}
+function cardHTML(r){
+  const n=nightsOf(r.checkIn,r.checkOut);
+  const tags=[`<span class="tag ${r.platform}">${PLAT[r.platform]||"—"}</span>`];
+  if(state.prop==="ALL")tags.push(`<span class="tag">${esc(PNAME[r.property]||r.property)}</span>`);
+  if(r.cancelled)tags.push(`<span class="tag bad">Ακυρώθηκε</span>`);
+  const di=depInfo(r);
+  if(di&&!r.cancelled){
+    if(r.paid)tags.push(`<span class="tag ok">Εξοφλήθηκε</span>`);
+    else if(r.depositPaid)tags.push(`<span class="tag warn">Προκαταβολή ${eur(di.dep)} · υπόλοιπο ${eur(di.bal)}</span>`);
+    else tags.push(`<span class="tag warn">Χωρίς προκαταβολή</span>`);
+  }
+  const meta=[r.guests?r.guests+" άτ.":"",r.phone?esc(r.phone):""].filter(Boolean).join(" · ");
+  return `<button class="card ${r.platform}${r.cancelled?" cancelled":""}" data-id="${esc(r.id)}">
+    <div class="row"><div class="dates num">${fmtD(r.checkIn)} → ${fmtD(r.checkOut)}<span class="n">${n} ${n===1?"βράδυ":"βράδια"}</span></div><div class="amt num">${eur(r.amount)}</div></div>
+    <div class="who"><span class="name">${esc(r.name||"Χωρίς όνομα")}</span>${meta?`<span class="meta num">${meta}</span>`:""}</div>
+    <div class="tags">${tags.join("")}</div>
+    ${r.notes?`<div class="who"><span class="meta">${esc(r.notes)}</span></div>`:""}
+  </button>`;
+}
+function renderList(){
+  const box=$("bookings");
+  if(!state.loaded){return}
+  let rows=filtered();
+  const q=state.q.trim().toLowerCase();
+  if(q){const qd=q.replace(/\D/g,"");rows=rows.filter(r=>(r.name||"").toLowerCase().includes(q)||(qd.length>=3&&(r.phone||"").replace(/\D/g,"").includes(qd))||(r.notes||"").toLowerCase().includes(q))}
+  const t=todayIso();
+  if(state.mode==="up"&&!q)rows=rows.filter(r=>r.checkOut>=t);
+  rows.sort((a,b)=>a.checkIn.localeCompare(b.checkIn));
+  const groups=new Map();
+  for(const r of rows){const k=r.checkIn.slice(0,7);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r)}
+  let keys=[...groups.keys()];
+  if(state.mode==="all"||q)keys.reverse();
+  if(!rows.length){
+    box.innerHTML=state.rows.length
+      ?`<div class="empty"><b>${q?"Δεν βρέθηκε κράτηση":"Καμία επόμενη κράτηση"}</b>${q?"Δοκίμασε άλλο όνομα ή τηλέφωνο.":"Πάτα «Όλες» για τις παλιές ή «+ Νέα κράτηση» για να προσθέσεις."}</div>`
+      :`<div class="empty"><b>Δεν υπάρχουν κρατήσεις ακόμα</b>Πάτα «+ Νέα κράτηση» για να καταχωρήσεις την πρώτη.</div>`;
+    return;
+  }
+  box.innerHTML=keys.map(k=>{
+    const g=groups.get(k);const [y,m]=k.split("-").map(Number);
+    const sum=g.reduce((s,r)=>s+(+r.amount||0),0);
+    const ni=g.filter(r=>!r.cancelled).reduce((s,r)=>s+nightsOf(r.checkIn,r.checkOut),0);
+    return `<div class="month"><div class="month-h"><h2>${MONTHS[m-1]} ${y}</h2><span class="num">${ni} βρ. · <b>${eur(sum)}</b></span></div><div class="list">${g.map(cardHTML).join("")}</div></div>`;
+  }).join("");
+}
+$("bookings").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openSheet(state.rows.find(r=>r.id===c.dataset.id))});
+$("q").addEventListener("input",e=>{state.q=e.target.value;renderList()});
+function setMode(m){state.mode=m;$("m-up").setAttribute("aria-pressed",m==="up");$("m-all").setAttribute("aria-pressed",m==="all");renderList()}
+$("m-up").onclick=()=>setMode("up");$("m-all").onclick=()=>setMode("all");
+
+/* income */
+function barRows(items,max,cls){
+  return items.map(it=>`<span class="lbl">${esc(it.l)}</span><span class="track"><span class="fill ${cls?cls(it):""}" style="width:${max?Math.max(0,it.v/max*100):0}%"></span></span><span class="val num">${eur(it.v)}</span>`).join("");
+}
+function renderIncome(){
+  $("y-lbl").textContent=state.year;$("x-year").textContent=state.year;$("x-year2").textContent=state.year;
+  const box=$("income");
+  if(!state.loaded)return;
+  const rows=filtered().filter(r=>r.checkIn.slice(0,4)==String(state.year));
+  const total=rows.reduce((s,r)=>s+(+r.amount||0),0);
+  const live=rows.filter(r=>!r.cancelled);
+  const nights=live.reduce((s,r)=>s+nightsOf(r.checkIn,r.checkOut),0);
+  const months=MONTHS.map((m,i)=>({l:MSH[i],v:rows.filter(r=>+r.checkIn.slice(5,7)===i+1).reduce((s,r)=>s+(+r.amount||0),0)}));
+  const mmax=Math.max(...months.map(x=>x.v));
+  const plats=Object.keys(PLAT).map(p=>({p,l:PLAT[p],v:rows.filter(r=>r.platform===p).reduce((s,r)=>s+(+r.amount||0),0)}));
+  const pmax=Math.max(...plats.map(x=>x.v));
+  const props=PROPS.map(p=>({l:p.n,v:rows.filter(r=>r.property===p.k).reduce((s,r)=>s+(+r.amount||0),0)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  const prmax=Math.max(0,...props.map(x=>x.v));
+  const owed=filtered().filter(r=>r.platform==="direct"&&!r.cancelled&&!r.paid).sort((a,b)=>a.checkIn.localeCompare(b.checkIn));
+  const owedSum=owed.reduce((s,r)=>s+depInfo(r).bal,0);
+  box.innerHTML=`
+    <div class="kpis">
+      <div class="kpi big"><label>Έσοδα ${state.year}${state.prop!=="ALL"?" · "+esc(PNAME[state.prop]):""}</label><div class="v num">${eur(total)}</div></div>
+      <div class="kpi"><label>Κρατήσεις</label><div class="v num">${live.length}</div></div>
+      <div class="kpi"><label>Βράδια</label><div class="v num">${nights}</div></div>
+      <div class="kpi"><label>Μέσο / βράδυ</label><div class="v num">${nights?eur(live.reduce((s,r)=>s+(+r.amount||0),0)/nights):"—"}</div></div>
+      <div class="kpi"><label>Υπόλοιπα προς είσπραξη</label><div class="v num">${eur(owedSum)}</div></div>
+    </div>
+    <div class="panel"><h3>Ανά μήνα (check in)</h3><div class="bars">${barRows(months,mmax)}</div></div>
+    <div class="panel"><h3>Ανά πλατφόρμα</h3><div class="bars">${barRows(plats,pmax,it=>it.p)}</div></div>
+    ${state.prop==="ALL"&&props.length?`<div class="panel"><h3>Ανά κατάλυμα</h3><div class="bars">${barRows(props,prmax)}</div></div>`:""}
+    <div class="panel"><h3>Εκτός πλατφόρμας · ανεξόφλητες</h3>${owed.length?`<div class="owed">${owed.map(r=>{const d=depInfo(r);return `<button data-id="${esc(r.id)}"><span><b>${esc(r.name||"Χωρίς όνομα")}</b><br><span class="s num">${fmtD(r.checkIn)} · ${esc(PNAME[r.property]||r.property)} · ${r.depositPaid?"προκ. "+eur(d.dep):"χωρίς προκαταβολή"}</span></span><b class="num">${eur(d.bal)}</b></button>`}).join("")}</div>`:`<div class="s" style="color:var(--muted)">Όλες οι κρατήσεις εκτός πλατφόρμας έχουν εξοφληθεί.</div>`}</div>`;
+}
+$("income").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b)openSheet(state.rows.find(r=>r.id===b.dataset.id))});
+/* excel export */
+function buildWorkbook(year){
+  const X=window.XLSX, wb=X.utils.book_new();
+  const yr=state.rows.filter(r=>r.checkIn.slice(0,4)==String(year)).sort((a,b)=>a.checkIn.localeCompare(b.checkIn));
+  const D=s=>{const [y,m,d]=s.split("-").map(Number);return (Date.UTC(y,m-1,d)-Date.UTC(1899,11,30))/864e5};
+  // summary
+  const sum=[["ΕΣΟΔΑ "+year],[],["ΜΗΝΑΣ",...PROPS.map(p=>p.n),"ΣΥΝΟΛΟ"]];
+  for(let m=1;m<=12;m++){
+    const vals=PROPS.map(p=>yr.filter(r=>r.property===p.k&&+r.checkIn.slice(5,7)===m).reduce((s,r)=>s+(+r.amount||0),0));
+    sum.push([MUP[m-1],...vals,vals.reduce((a,b)=>a+b,0)]);
+  }
+  const tot=PROPS.map((p,i)=>sum.slice(3).reduce((s,row)=>s+row[i+1],0));
+  sum.push(["ΣΥΝΟΛΟ",...tot,tot.reduce((a,b)=>a+b,0)]);
+  sum.push([]);sum.push(["ΑΝΑ ΠΛΑΤΦΟΡΜΑ"]);
+  for(const p of Object.keys(PLAT))sum.push([PLAT[p],yr.filter(r=>r.platform===p).reduce((s,r)=>s+(+r.amount||0),0)]);
+  const ws0=X.utils.aoa_to_sheet(sum);ws0["!cols"]=[{wch:14},...PROPS.map(()=>({wch:20})),{wch:12}];
+  X.utils.book_append_sheet(wb,ws0,"ΣΥΝΟΨΗ");
+  // per property, same layout as the user's own sheets
+  const head=["ΜΗΝΑΣ","CHECK IN","CHECK OUT","ΒΡΑΔΙΑ","ΑΤΟΜΑ","ΟΝΟΜΑ","ΤΗΛΕΦΩΝΟ","BOOKING","AIRBNB","ΕΚΤΟΣ","ΠΡΟΚΑΤΑΒΟΛΗ","ΕΞΟΦΛΗΘΗΚΕ","ΑΚΥΡΩΣΗ","ΣΗΜΕΙΩΣΕΙΣ"];
+  for(const p of PROPS){
+    const aoa=[head];let grand=[0,0,0],gn=0;
+    for(let m=1;m<=12;m++){
+      const g=yr.filter(r=>r.property===p.k&&+r.checkIn.slice(5,7)===m);
+      if(!g.length)continue;
+      let s=[0,0,0],n=0;
+      g.forEach((r,i)=>{
+        const ni=nightsOf(r.checkIn,r.checkOut),a=+r.amount||0;
+        const cols=[r.platform==="booking"?a:null,r.platform==="airbnb"?a:null,r.platform==="direct"?a:null];
+        cols.forEach((v,j)=>{if(v)s[j]+=v});if(!r.cancelled)n+=ni;
+        aoa.push([i===0?MUP[m-1]:null,D(r.checkIn),D(r.checkOut),ni,r.guests??null,r.name||null,r.phone||null,...cols,
+          r.platform==="direct"&&r.depositPaid?(+r.depositAmount||0):null,
+          r.platform==="direct"?(r.paid?"ΝΑΙ":"ΟΧΙ"):null,r.cancelled?"ΝΑΙ":null,r.notes||null]);
+      });
+      aoa.push([null,"ΣΥΝΟΛΟ",null,n,null,null,null,s[0]||null,s[1]||null,s[2]||null,null,null,null,"Μήνας: "+eur(s[0]+s[1]+s[2])]);
+      aoa.push([]);
+      s.forEach((v,j)=>grand[j]+=v);gn+=n;
+    }
+    aoa.push([null,"ΣΥΝΟΛΟ ΕΤΟΥΣ",null,gn,null,null,null,grand[0],grand[1],grand[2],null,null,null,"Σύνολο: "+eur(grand[0]+grand[1]+grand[2])]);
+    const ws=X.utils.aoa_to_sheet(aoa);
+    for(const k of Object.keys(ws)){if(/^[BC]\d+$/.test(k)&&ws[k].t==="n")ws[k].z="dd/mm/yyyy"}
+    ws["!cols"]=[{wch:13},{wch:11},{wch:11},{wch:7},{wch:6},{wch:26},{wch:17},{wch:9},{wch:9},{wch:9},{wch:12},{wch:11},{wch:9},{wch:30}];
+    X.utils.book_append_sheet(wb,ws,p.k.replace(/[\\/?*\[\]:]/g,"").slice(0,31));
+  }
+  return wb;
+}
+$("x-btn").onclick=async()=>{
+  const msg=$("x-msg");msg.hidden=true;
+  const show=t=>{msg.textContent=t;msg.hidden=false};
+  if(!state.loaded)return show("Περίμενε να φορτώσουν οι κρατήσεις.");
+  if(!window.XLSX)return show("Το εργαλείο Excel δεν φόρτωσε. Κλείσε και άνοιξε ξανά τη σελίδα.");
+  window.__wb=buildWorkbook(state.year);
+  try{
+    const name="Kratiseis_"+state.year+".xlsx";
+    if(window.AndroidNative&&AndroidNative.saveFile){
+      const b64=XLSX.write(window.__wb,{type:"base64",bookType:"xlsx"});
+      const r=AndroidNative.saveFile(name,b64);
+      show(String(r).startsWith("OK")?"Αποθηκεύτηκε στις Λήψεις (Downloads) του κινητού: "+name:"Η λήψη δεν ολοκληρώθηκε: "+r);
+    }else{
+      const buf=XLSX.write(window.__wb,{type:"array",bookType:"xlsx"});
+      const url=URL.createObjectURL(new Blob([buf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));
+      const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),4000);
+      show("Το αρχείο κατέβηκε: "+name);
+    }
+  }catch(e){show("Η λήψη δεν ολοκληρώθηκε. Ξαναδοκίμασε.")}
+};
+$("y-prev").onclick=()=>{state.year--;renderIncome()};
+$("y-next").onclick=()=>{state.year++;renderIncome()};
+
+function render(){renderList();renderIncome()}
+function setView(v){state.view=v;$("v-list").hidden=v!=="list";$("v-income").hidden=v!=="income";
+  $("t-list").toggleAttribute("aria-current",v==="list");$("t-income").toggleAttribute("aria-current",v==="income");
+  if(v==="list")$("t-list").setAttribute("aria-current","page");else $("t-income").setAttribute("aria-current","page");
+  window.scrollTo(0,0)}
+$("t-list").onclick=()=>setView("list");$("t-income").onclick=()=>setView("income");
+
+/* sheet / form */
+let editing=null, plat="booking";
+$("f-prop").innerHTML=PROPS.map(p=>`<option value="${esc(p.k)}">${esc(p.n)}</option>`).join("");
+function setPlat(p){plat=p;document.querySelectorAll(".plat button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.p===p));$("f-depbox").hidden=p!=="direct";updateCalc()}
+document.querySelectorAll(".plat button").forEach(b=>b.onclick=()=>setPlat(b.dataset.p));
+function updateCalc(){
+  const a=$("f-in").value,b=$("f-out").value;const n=nightsOf(a,b);
+  $("f-nights").innerHTML=a&&b?(n>0?`<b class="num">${n}</b> ${n===1?"βράδυ":"βράδια"}`:`<span class="err">Το check out πρέπει να είναι μετά το check in</span>`):"Διάλεξε ημερομηνίες";
+  $("f-depamt-w").hidden=!$("f-dep").checked;
+  const amt=+$("f-amount").value||0, dep=$("f-dep").checked?(+$("f-depamt").value||0):0;
+  $("f-balance").innerHTML=$("f-paid").checked?"Η κράτηση έχει εξοφληθεί.":`Υπόλοιπο προς είσπραξη: <b class="num">${eur(Math.max(0,amt-dep))}</b>`;
+  const ov=a&&b&&n>0&&!$("f-canc").checked?state.rows.filter(r=>r.id!==editing?.id&&r.property===$("f-prop").value&&!r.cancelled&&r.checkIn<b&&r.checkOut>a):[];
+  $("f-overlap").hidden=!ov.length;
+  if(ov.length)$("f-overlap").textContent="Προσοχή: πέφτει πάνω σε "+ov.map(r=>(r.name||"κράτηση")+" ("+fmtD(r.checkIn)+" → "+fmtD(r.checkOut)+")").join(", ");
+  const ph=$("f-phone").value.replace(/[^\d+]/g,"");$("f-call").hidden=ph.length<6;$("f-call").href="tel:"+ph;
+}
+["f-in","f-out","f-amount","f-dep","f-depamt","f-paid","f-canc","f-prop","f-phone"].forEach(id=>$(id).addEventListener("input",updateCalc));
+$("f-in").addEventListener("change",()=>{const a=$("f-in").value,b=$("f-out").value;if(a&&(!b||b<=a)){const d=pd(a);d.setDate(d.getDate()+1);$("f-out").value=iso(d)}updateCalc()});
+$("g-minus").onclick=()=>{$("f-guests").value=Math.max(1,(+$("f-guests").value||1)-1)};
+$("g-plus").onclick=()=>{$("f-guests").value=Math.min(20,(+$("f-guests").value||0)+1)};
+
+function openSheet(r){
+  editing=r||null;
+  $("s-title").textContent=r?"Επεξεργασία":"Νέα κράτηση";
+  $("f-prop").value=r?.property||(state.prop!=="ALL"?state.prop:PROPS[0].k);
+  $("f-in").value=r?.checkIn||"";$("f-out").value=r?.checkOut||"";
+  $("f-guests").value=r?.guests??2;$("f-amount").value=r?(r.amount??""):"";
+  $("f-name").value=r?.name||"";$("f-phone").value=r?.phone||"";
+  $("f-dep").checked=!!r?.depositPaid;$("f-depamt").value=r?.depositAmount||"";
+  $("f-paid").checked=!!r?.paid;$("f-notes").value=r?.notes||"";$("f-canc").checked=!!r?.cancelled;
+  $("f-err").hidden=true;$("f-del").hidden=!r;disarm();
+  setPlat(r?.platform||"booking");
+  $("sheet").hidden=false;$("sheet").scrollTop=0;document.body.style.overflow="hidden";
+}
+function closeSheet(){$("sheet").hidden=true;document.body.style.overflow="";editing=null}
+$("fab").onclick=()=>openSheet(null);
+$("s-cancel").onclick=closeSheet;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("sheet").hidden)closeSheet()});
+function showErr(t){$("f-err").textContent=t;$("f-err").hidden=false;$("f-err").scrollIntoView({block:"center",behavior:"smooth"})}
+
+$("s-save").onclick=async()=>{
+  const a=$("f-in").value,b=$("f-out").value;
+  if(!a||!b)return showErr("Συμπλήρωσε check in και check out.");
+  if(nightsOf(a,b)<=0)return showErr("Το check out πρέπει να είναι μετά το check in.");
+  if(!col)return showErr("Δεν είσαι συνδεδεμένος. Κλείσε και άνοιξε ξανά την εφαρμογή.");
+  const isDirect=plat==="direct";
+  const data={
+    property:$("f-prop").value,checkIn:a,checkOut:b,
+    guests:$("f-guests").value?Math.round(+$("f-guests").value):null,
+    name:$("f-name").value.trim(),phone:$("f-phone").value.trim(),platform:plat,
+    amount:+$("f-amount").value||0,
+    depositPaid:isDirect&&$("f-dep").checked,depositAmount:isDirect&&$("f-dep").checked?(+$("f-depamt").value||0):0,
+    paid:isDirect?$("f-paid").checked:true,
+    cancelled:$("f-canc").checked,notes:$("f-notes").value.trim(),
+    updatedAt:new Date().toISOString()
+  };
+  if(editing?.source)data.source=editing.source;
+  const btn=$("s-save");btn.disabled=true;btn.textContent="Αποθήκευση…";
+  try{
+    await col.child(editing?editing.id:col.push().key).set(data);
+    closeSheet();toast(editing?"Η κράτηση ενημερώθηκε":"Η κράτηση αποθηκεύτηκε");
+  }catch(e){showErr(/permission/i.test(e?.code||e?.message||"")?"Ο λογαριασμός δεν έχει δικαίωμα αποθήκευσης (κανόνες Firebase).":"Δεν αποθηκεύτηκε. Έλεγξε τη σύνδεση και ξαναδοκίμασε.")}
+  finally{btn.disabled=false;btn.textContent="Αποθήκευση"}
+};
+function disarm(){const d=$("f-del");d.classList.remove("armed");d.textContent="Διαγραφή κράτησης";d.dataset.armed=""}
+$("f-del").onclick=async()=>{
+  const d=$("f-del");
+  if(!d.dataset.armed){d.dataset.armed="1";d.classList.add("armed");d.textContent="Πάτα ξανά για οριστική διαγραφή";return}
+  try{await col.child(editing.id).remove();closeSheet();toast("Η κράτηση διαγράφηκε")}catch(e){showErr("Δεν διαγράφηκε. Ξαναδοκίμασε.")}
+};
+
+/* import (αρχείο .json από Claude) */
+$("i-btn").onclick=()=>$("i-file").click();
+$("i-file").onchange=async e=>{
+  const f=e.target.files[0];e.target.value="";if(!f)return;
+  const msg=$("x-msg");const show=t=>{msg.textContent=t;msg.hidden=false};
+  if(!col)return show("Σύνδεσου πρώτα.");
+  try{
+    const arr=JSON.parse(await f.text());
+    const upd={};let n=0;
+    for(const it of arr){if(it&&it.id&&it.data&&it.data.checkIn&&it.data.checkOut){upd[String(it.id).replace(/[.#$\[\]\/]/g,"_")]=it.data;n++}}
+    if(!n)return show("Το αρχείο δεν έχει κρατήσεις.");
+    await col.update(upd);
+    show("Περάστηκαν "+n+" κρατήσεις. Αν ξαναπεράσεις το ίδιο αρχείο, δεν δημιουργούνται διπλές.");
+  }catch(err){show(/permission/i.test(err?.code||err?.message||"")?"Ο λογαριασμός δεν έχει δικαίωμα αποθήκευσης (κανόνες Firebase).":"Δεν διαβάστηκε το αρχείο.")}
+};
+
+/* boot */
+renderChips();
+firebase.initializeApp({
+  apiKey:"AIzaSyAn9QmAnE6JZZqcRND2PsM3WYxElJh-TvY",
+  authDomain:"airbnb-calendar-ef272.firebaseapp.com",
+  databaseURL:"https://airbnb-calendar-ef272-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"airbnb-calendar-ef272",
+  storageBucket:"airbnb-calendar-ef272.firebasestorage.app",
+  messagingSenderId:"413048814442",
+  appId:"1:413048814442:web:20054cb838348b4a714313"
+});
+const auth=firebase.auth();
+db=firebase.database();
+/* Δομή: users/{uid}/krateseis/{id} -> κράτηση (ιδιωτικά για τον λογαριασμό) */
+$("l-form").addEventListener("submit",async e=>{
+  e.preventDefault();const er=$("l-err");er.hidden=true;$("l-go").disabled=true;
+  try{await auth.signInWithEmailAndPassword($("l-email").value.trim(),$("l-pass").value)}
+  catch(err){er.textContent=/password|credential|user/i.test(err?.code||"")?"Λάθος email ή κωδικός.":"Δεν έγινε σύνδεση. Έλεγξε το internet.";er.hidden=false}
+  finally{$("l-go").disabled=false}
+});
+$("logout").onclick=()=>auth.signOut();
+let unsub=null;
+auth.onAuthStateChanged(user=>{
+  if(unsub){unsub();unsub=null}
+  if(!user){col=null;state.rows=[];state.loaded=false;$("login").hidden=false;$("logout").hidden=true;$("status").textContent="";return}
+  $("login").hidden=true;$("logout").hidden=false;$("status").textContent="Φόρτωση…";
+  col=db.ref("users/"+user.uid+"/krateseis");
+  const h=col.on("value",snap=>{
+    const v=snap.val()||{};
+    state.rows=Object.entries(v).map(([id,d])=>({id,...d})).filter(r=>r.checkIn&&r.checkOut);
+    state.loaded=true;$("status").textContent=state.rows.length+" κρατήσεις";render();
+  },err=>{$("status").textContent="Σφάλμα";$("bookings").innerHTML=`<div class="empty"><b>Δεν φόρτωσαν οι κρατήσεις</b>${/permission/i.test(err?.code||"")?"Οι κανόνες του Firebase δεν επιτρέπουν πρόσβαση.":"Έλεγξε το internet και άνοιξε ξανά την εφαρμογή."}</div>`});
+  unsub=()=>col.off("value",h);
+});
+</script>
+</body>
+</html>
