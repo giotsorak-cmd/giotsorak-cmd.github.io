@@ -226,6 +226,7 @@
       h('li', {}, t('guests_up_to', { n: p.maxGuests })),
       p.bedrooms ? h('li', {}, t('bedrooms', { n: p.bedrooms })) : null,
       p.beds ? h('li', {}, t('beds', { n: p.beds })) : null,
+      p.sofaBeds ? h('li', {}, t('sofa_beds', { n: p.sofaBeds })) : null,
       p.baths ? h('li', {}, t('baths', { n: p.baths })) : null,
       p.size ? h('li', {}, t('size', { n: p.size })) : null,
     );

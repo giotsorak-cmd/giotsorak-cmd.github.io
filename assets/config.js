@@ -98,7 +98,7 @@ window.COMFY = {
         sr: 'Svetao, potpuno renoviran stan od 60 m² sa panoramskim pogledom na ceo Solun, od OTE tornja do Gornjeg grada, i more na horizontu.\n\nSpojeni dnevni boravak i trpezarija sa drvenim podom, električnim kaminom i velikim televizorom. Kauč se razvlači u krevet.\n\nDve spavaće sobe sa televizorom i klima-uređajem: prva sa bračnim krevetom 160×200, radnim stolom i izlazom na balkon, druga sa bračnim krevetom 140×200. Prima do 6 osoba.\n\nOpremljena kuhinja sa rernom, keramičkom pločom, frižiderom, mikrotalasnom, Nespresso aparatom, kuvalom za vodu i tosterom, kao i šankom za doručak.\n\nModerno kupatilo sa tušem sa kišnom ružom, peškirima, bade-mantilima i kozmetikom.\n\nBalkon sa stočićem i stolicama gleda na grad: idealan za jutarnju kafu ili čašu vina uveče.',
         ru: 'Светлая квартира 60 м² с полным ремонтом с панорамным видом на все Салоники, от башни ОТЕ до Верхнего города, и с морем на горизонте.\n\nОбъединённые гостиная и столовая с деревянным полом, электрокамином и большим телевизором. Диван раскладывается в кровать.\n\nДве спальни с телевизором и кондиционером: в первой двуспальная кровать 160×200, рабочий стол и выход на балкон, во второй двуспальная кровать 140×200. Вмещает до 6 гостей.\n\nОборудованная кухня с духовкой, стеклокерамической плитой, холодильником, микроволновкой, кофемашиной Nespresso, чайником и тостером, а также барная стойка для завтрака.\n\nСовременная ванная с тропическим душем, полотенцами, халатами и средствами по уходу.\n\nС балкона со столиком и стульями открывается вид на город: идеально для утреннего кофе или бокала вина вечером.',
       },
-      maxGuests: 6, bedrooms: 2, beds: 3, baths: 1, size: 60,
+      maxGuests: 6, bedrooms: 2, beds: 2, sofaBeds: 1, baths: 1, size: 60,
       fromPrice: 70,
       weekendPrice: 80, // Παρασκευή & Σάββατο — οι πραγματικές τιμές ορίζονται στο worker.js
       minNights: 2,
@@ -218,7 +218,7 @@ window.COMFY = {
         sr: 'Moderan, potpuno renoviran stan od 78 m² na bulevaru Vasilisis Olgas, nekoliko minuta od šetališta uz more, sa restoranima, pekarama i supermarketima svuda okolo. Prima do 6 osoba.\n\nVeliki dnevni boravak sa ugaonom garniturom na razvlačenje i televizorom. Otvorena kuhinja sa trpezarijskim stolom, rernom, pločom, frižiderom, mašinom za sudove i mašinom za veš.\n\nDve spavaće sobe sa bračnim krevetima i klima-uređajem, kao i radni kutak sa stolom.\n\nModerno kupatilo sa staklenom tuš-kabinom, peškirima, bade-mantilima i kozmetikom.\n\nBalkon sa tendom, stočićem i foteljama gleda na grad.',
         ru: 'Современная квартира 78 м² с полным ремонтом на проспекте Василиссис Ольгас, в нескольких минутах от набережной; вокруг рестораны, пекарни и супермаркеты. Вмещает до 6 гостей.\n\nБольшая гостиная с раскладным угловым диваном и телевизором. Открытая кухня с обеденным столом, духовкой, варочной панелью, холодильником, посудомоечной и стиральной машиной.\n\nДве спальни с двуспальными кроватями и кондиционером, а также рабочий уголок со столом.\n\nСовременная ванная со стеклянной душевой, полотенцами, халатами и средствами по уходу.\n\nБалкон с маркизой, столиком и креслами смотрит на город.',
       },
-      maxGuests: 6, bedrooms: 2, beds: 3, baths: 1, size: 78,
+      maxGuests: 6, bedrooms: 2, beds: 2, sofaBeds: 1, baths: 1, size: 78,
       fromPrice: 65,
       checkin: '15:00', checkout: '11:00',
       floor: 5,
@@ -275,7 +275,7 @@ window.COMFY = {
         sr: 'Prostran, svetao stan od 87 m² u Pilei, u mirnom kraju blizu obilaznice, nekoliko minuta kolima od centra Soluna. Prima do 5 osoba.\n\nVeliki dnevni boravak sa kaučem na razvlačenje, velikim televizorom i trpezarijskim stolom. Potpuno opremljena kuhinja sa rernom, pločom, frižiderom, mikrotalasnom, mašinom za sudove i aparatom za kafu.\n\nDve spavaće sobe sa bračnim krevetima i mnogo ormara, kao i kutak sa radnim stolom.\n\nKupatilo sa kadom i odvojen toalet. Mašina za pranje i mašina za sušenje veša.\n\nBalkon sa stolom i stolicama, centralno grejanje i klima-uređaj.',
         ru: 'Просторная светлая квартира 87 м² в Пилее, в тихом районе у кольцевой дороги, в нескольких минутах езды от центра Салоник. Вмещает до 5 гостей.\n\nБольшая гостиная с раскладным диваном, большим телевизором и обеденным столом. Полностью оборудованная кухня с духовкой, варочной панелью, холодильником, микроволновкой, посудомоечной машиной и кофемашиной.\n\nДве спальни с двуспальными кроватями и вместительными шкафами, а также уголок с рабочим столом.\n\nВанная комната с ванной и отдельный туалет. Стиральная и сушильная машины.\n\nБалкон со столом и стульями, центральное отопление и кондиционер.',
       },
-      maxGuests: 5, bedrooms: 2, beds: 3, baths: 1, size: 87,
+      maxGuests: 5, bedrooms: 2, beds: 2, sofaBeds: 1, baths: 1, size: 87,
       fromPrice: 60,
       checkin: '15:00', checkout: '11:00',
       parking: {
@@ -328,7 +328,7 @@ window.COMFY = {
         sr: 'Moderan, pažljivo uređen stan sa dve spavaće sobe i velikom privatnom terasom u Sjatisti.\n\nDnevni boravak sa ugaonom garniturom na razvlačenje, trpezarijskim stolom i velikim televizorom. Prima do 6 osoba. Kuhinja ima rernu, ploču za kuvanje, frižider i Nespresso aparat.\n\nPrva spavaća soba ima bračni krevet sa drvenim uzglavljem, radni sto, televizor i vrata ka terasi. Druga ima bračni krevet, televizor i noćne lampe koje menjaju boju.\n\nModerno kupatilo sa tuš stubom, drvenim pultom i osvetljenim ogledalom, sa peškirima i kozmetikom.\n\nVelika terasa sa stolom i stolicama idealna je za jutarnju kafu. Na raspolaganju su i mašina za veš, pegla, fen i sef.',
         ru: 'Современная, продуманно обставленная квартира с двумя спальнями и большой собственной террасой в Сьятисте.\n\nГостиная с раскладным угловым диваном, обеденным столом и большим телевизором. Вмещает до 6 гостей. На кухне есть духовка, варочная панель, холодильник и кофемашина Nespresso.\n\nВ первой спальне двуспальная кровать с деревянным изголовьем, рабочий стол, телевизор и выход на террасу. Во второй двуспальная кровать, телевизор и прикроватные лампы со сменой цвета.\n\nСовременная ванная с душевой панелью, деревянной столешницей и зеркалом с подсветкой, с полотенцами и средствами по уходу.\n\nБольшая терраса со столом и стульями идеально подходит для утреннего кофе. Также есть стиральная машина, утюг, фен и сейф.',
       },
-      maxGuests: 6, bedrooms: 2, beds: 3, baths: 1, size: 60,
+      maxGuests: 6, bedrooms: 2, beds: 2, sofaBeds: 1, baths: 1, size: 60,
       parking: {
         el: 'Δωρεάν δημόσιο πάρκινγκ ακριβώς δίπλα στο σπίτι.', en: 'Free public parking right next to the house.',
         de: 'Kostenlose öffentliche Parkplätze direkt neben dem Haus.', bg: 'Безплатен обществен паркинг точно до къщата.',
@@ -394,7 +394,7 @@ window.COMFY = {
         sr: 'Prostrana kuća od 110 m² u centru Sjatiste, pored trga, sa restoranima, kafićima i pekarom na nekoliko koraka. Idealna za porodice i društva, prima do 8 osoba.\n\nVeliki dnevni boravak sa tradicionalnim drvenim nameštajem, kaučem na razvlačenje, velikim televizorom, klima-uređajem i šahom za večeri. Pored njega trpezarija i kuhinja sa rernom, pločom za kuvanje, frižiderom, mikrotalasnom i aparatom za kafu.\n\nTri spavaće sobe sa televizorom: dve sa bračnim krevetom, jedna sa dva kreveta za jednu osobu i foteljom na razvlačenje.\n\nVeliko kupatilo sa kadom, mašinom za veš, peškirima i kozmetikom.',
         ru: 'Просторный дом 110 м² в центре Сьятисты, рядом с площадью: рестораны, кафе и пекарня в нескольких шагах. Идеально для семей и компаний, вмещает до 8 гостей.\n\nБольшая гостиная с традиционной деревянной мебелью, раскладным диваном, большим телевизором, кондиционером и шахматами для вечеров. Рядом столовая и кухня с духовкой, варочной панелью, холодильником, микроволновкой и кофемашиной.\n\nТри спальни с телевизором: две с двуспальной кроватью, одна с двумя односпальными кроватями и раскладным креслом.\n\nБольшая ванная с ванной, стиральной машиной, полотенцами и средствами по уходу.',
       },
-      maxGuests: 8, bedrooms: 3, beds: 6, baths: 1, size: 110,
+      maxGuests: 8, bedrooms: 3, beds: 4, sofaBeds: 2, baths: 1, size: 110,
       fromPrice: 80,
       checkin: '15:00', checkout: '11:00',
       parking: {
