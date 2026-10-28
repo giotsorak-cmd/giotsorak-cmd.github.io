@@ -44,7 +44,7 @@ window.COMFY = {
       { number: '+30 694 874 2713', viber: true, whatsapp: true },
       { number: '+30 694 913 5270', viber: true, whatsapp: true },
     ],
-    instagram: '', // ΣΥΜΠΛΗΡΩΣΕ: π.χ. 'comfystay.gr' (χωρίς @)
+    instagram: 'comfystay_ingreece', // ΣΥΜΠΛΗΡΩΣΕ: π.χ. 'comfystay.gr' (χωρίς @)
     email: 'info@comfystay.gr',
   },
 
