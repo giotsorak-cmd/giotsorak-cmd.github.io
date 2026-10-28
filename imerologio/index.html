@@ -76,7 +76,7 @@
     .brand h1{
       font-family:'Fraunces',serif;
       font-weight:600;
-      font-size:24px;
+      font-size:22px;
       margin:0;
       line-height:1.15;
       letter-spacing:-0.01em;
@@ -99,7 +99,78 @@
       flex:none;
     }
     .icon-btn:active{transform:scale(0.95);}
-    .header-actions{display:flex;gap:8px;flex:none;}
+    .header-actions{display:flex;gap:6px;flex:none;}
+    .header-actions .icon-btn{width:38px;height:38px;position:relative;}
+    .icon-badge{
+      position:absolute;top:-5px;right:-5px;
+      min-width:17px;height:17px;padding:0 4px;
+      border-radius:999px;background:var(--danger);color:#fff;
+      font-size:10.5px;font-weight:700;line-height:17px;text-align:center;
+      display:none;
+    }
+
+    /* Σήμερα / Αύριο */
+    .today-panel{
+      margin:0 12px 14px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px 12px 4px;
+    }
+    .today-block + .today-block{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;}
+    .today-head{
+      display:flex;align-items:baseline;justify-content:space-between;
+      font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;
+      color:var(--ink-soft);margin:2px 0 8px;
+    }
+    .today-head .when{font-family:'Fraunces',serif;text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink);}
+    .today-empty{font-size:13px;color:var(--ink-soft);padding:0 0 8px;}
+    .today-panel .event-row{background:var(--paper);border-color:transparent;}
+
+    .badge-turn{
+      display:inline-block;background:#FFF1D6;color:#8A5A00;
+      border:1px solid #F1D49A;border-radius:999px;
+      padding:1px 7px;font-size:11px;font-weight:700;margin-left:6px;
+    }
+    .clean-btn{
+      flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
+      border-radius:10px;padding:7px 9px;font-size:12px;font-weight:600;
+      font-family:'Work Sans',sans-serif;cursor:pointer;white-space:nowrap;
+    }
+    .clean-btn.done{background:#E7F5EC;border-color:#9DCFAE;color:#176B3A;}
+    .clean-meta{font-size:11px;color:#176B3A;margin-top:2px;}
+    .info-btn{
+      background:none;border:none;color:var(--ink-soft);
+      font-size:13px;padding:0 4px;margin-left:2px;cursor:pointer;vertical-align:baseline;
+    }
+    .cell-flags{
+      position:absolute;top:1px;right:2px;
+      font-size:9px;line-height:1;font-weight:700;
+    }
+    .cell-flags .f-turn{color:#B7791F;}
+    .cell-flags .f-clean{color:#176B3A;}
+
+    /* Καρτέλα καταλύματος */
+    .info-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;}
+    .info-row .k{font-size:11.5px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.03em;}
+    .info-row .v{font-size:15px;margin-top:3px;white-space:pre-wrap;word-break:break-word;}
+    .info-code{display:flex;align-items:center;gap:10px;}
+    .info-code .v{font-family:'Fraunces',serif;font-size:24px;font-weight:600;letter-spacing:0.12em;flex:1;}
+    details.prop-info{margin-top:8px;}
+    details.prop-info summary{font-size:13px;font-weight:600;color:var(--ink-soft);cursor:pointer;padding:4px 0;}
+    details.prop-info input, details.prop-info textarea{font-size:13px;margin-top:6px;}
+
+    /* Προβλήματα */
+    .issue-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;}
+    .issue-card.resolved{opacity:0.6;}
+    .issue-card .t{font-size:14px;margin:4px 0;white-space:pre-wrap;word-break:break-word;}
+    .issue-card .m{font-size:11.5px;color:var(--ink-soft);}
+    .issue-actions{display:flex;gap:8px;margin-top:8px;}
+    .issue-actions button{
+      border:1px solid var(--line);background:var(--paper);border-radius:9px;
+      padding:6px 10px;font-size:12.5px;font-weight:600;font-family:'Work Sans',sans-serif;cursor:pointer;color:var(--ink);
+    }
+    .issue-actions .del{color:var(--danger);}
     #auth-btn.is-owner{background:var(--gold);border-color:transparent;color:#fff;}
 
     .legend{
@@ -576,6 +647,10 @@
       <button class="icon-btn" id="ws-btn" aria-label="Τα ημερολόγιά μου">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       </button>
+      <button class="icon-btn" id="issues-btn" aria-label="Προβλήματα">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+        <span class="icon-badge" id="issues-badge"></span>
+      </button>
       <button class="icon-btn" id="auth-btn" aria-label="Λογαριασμός">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </button>
@@ -590,6 +665,8 @@
   <div class="no-access" id="no-access">
     Ο διαχειριστής δεν σου έχει δώσει ακόμα πρόσβαση σε κάποιο κατάλυμα αυτού του ημερολογίου.
   </div>
+
+  <section class="today-panel" id="today-panel" style="display:none;"></section>
 
   <div class="month-nav">
     <div class="label" id="month-label">—</div>
@@ -735,6 +812,30 @@
   </div>
 </div>
 
+<!-- Καρτέλα καταλύματος -->
+<div class="overlay" id="info-overlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h2 id="info-title">—</h2>
+    <div id="info-body"></div>
+    <button class="btn btn-ghost" id="info-close-btn">Κλείσιμο</button>
+  </div>
+</div>
+
+<!-- Προβλήματα -->
+<div class="overlay" id="issues-overlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <h2>Προβλήματα</h2>
+    <div id="issues-list"></div>
+    <h3>Νέα αναφορά</h3>
+    <div class="prop-picker" id="issue-prop-picker"></div>
+    <textarea id="issue-text" style="margin-top:10px;" placeholder="π.χ. λείπουν πετσέτες, χάλασε η λάμπα στο μπάνιο…"></textarea>
+    <button class="btn btn-primary" id="issue-send-btn">Αποστολή αναφοράς</button>
+    <button class="btn btn-ghost" id="issues-close-btn">Κλείσιμο</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -802,6 +903,8 @@
     d.bookings = toArray(d.bookings);
     if(!d.members || typeof d.members !== 'object') d.members = {};
     if(!d.hiddenExt || typeof d.hiddenExt !== 'object') d.hiddenExt = {};
+    if(!d.cleaning || typeof d.cleaning !== 'object') d.cleaning = {};
+    if(!d.issues || typeof d.issues !== 'object') d.issues = {};
     Object.keys(d.members).forEach(k => {
       const m = d.members[k];
       if(m && typeof m === 'object') m.allowedProperties = toArray(m.allowedProperties);
@@ -1001,6 +1104,96 @@
       chip.onclick = ()=>{ activeFilter = activeFilter===p.id ? null : p.id; renderAll(); };
       el.appendChild(chip);
     });
+
+    // Με επιλεγμένο κατάλυμα: κουμπί για την καρτέλα του
+    if(activeFilter){
+      const info = document.createElement('div');
+      info.className = 'chip';
+      info.innerHTML = 'ⓘ Πληροφορίες';
+      info.onclick = ()=> openPropInfo(activeFilter);
+      el.appendChild(info);
+    }
+  }
+
+  // ---------- καθαρισμός, ίδια μέρα, Σήμερα/Αύριο ----------
+
+  function cleaningOf(b){
+    const c = state.cleaning && state.cleaning[b.id];
+    return c && c.done ? c : null;
+  }
+
+  // Αλλαγή την ίδια μέρα: στο ίδιο κατάλυμα φεύγει κάποιος και έρχεται άλλος
+  function isTurnover(propertyId, iso){
+    let out = false, inn = false;
+    state.bookings.forEach(b=>{
+      if(b.propertyId !== propertyId) return;
+      if(b.checkout === iso) out = true;
+      if(b.checkin === iso) inn = true;
+    });
+    return out && inn;
+  }
+
+  function fmtTime(ts){
+    const d = new Date(ts);
+    return pad(d.getDate())+'/'+pad(d.getMonth()+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+  }
+  function shortName(email){ return String(email||'').split('@')[0]; }
+
+  async function toggleCleaning(b, btn){
+    if(!wsRef || !currentUser) return;
+    if(btn) btn.disabled = true;
+    const ref = wsRef.child('cleaning/' + b.id);
+    try{
+      if(cleaningOf(b)){
+        if(btn && !armButton(btn, 'Αναίρεση;')){ btn.disabled = false; return; }
+        await ref.remove();
+        showToast('Αναιρέθηκε το «Καθαρίστηκε»');
+      } else {
+        await ref.set({
+          done: true,
+          by: currentUser.email || '',
+          byUid: currentUser.uid,
+          at: Date.now(),
+          checkout: b.checkout,
+          propertyId: b.propertyId
+        });
+        const p = propById(b.propertyId);
+        showToast('✓ ' + (p ? p.name : 'Το κατάλυμα') + ': καθαρίστηκε');
+      }
+    }catch(e){
+      console.error(e);
+      showToast('Σφάλμα αποθήκευσης, δοκίμασε ξανά');
+    }
+    if(btn) btn.disabled = false;
+  }
+
+  function renderToday(){
+    const panel = document.getElementById('today-panel');
+    if(!currentUser || !dataLoaded || getVisibleProperties().length === 0){
+      panel.style.display = 'none';
+      return;
+    }
+    panel.style.display = 'block';
+    panel.innerHTML = '';
+    const today = todayISO();
+    const dayNames = ['Κυριακή','Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο'];
+    [[today, 'Σήμερα'], [addDaysISO(today, 1), 'Αύριο']].forEach(([iso, label])=>{
+      const d = new Date(iso+'T00:00:00');
+      const block = document.createElement('div');
+      block.className = 'today-block';
+      block.innerHTML = `<div class="today-head"><span>${label}</span><span class="when">${dayNames[d.getDay()]} ${d.getDate()}/${d.getMonth()+1}</span></div>`;
+      const {arrivals, departures} = eventsForDay(iso, true);
+      if(!arrivals.length && !departures.length){
+        const e = document.createElement('div');
+        e.className = 'today-empty';
+        e.textContent = 'Καμία άφιξη ή αναχώρηση.';
+        block.appendChild(e);
+      }
+      // πρώτα οι αναχωρήσεις (εκεί γίνεται ο καθαρισμός), μετά οι αφίξεις
+      departures.forEach(b=> block.appendChild(eventRow(b, 'out', iso)));
+      arrivals.forEach(b=> block.appendChild(eventRow(b, 'in', iso)));
+      panel.appendChild(block);
+    });
   }
 
   // Διάστημα που βλέπει ο χρήστης: ο διαχειριστής τα πάντα, οι υπόλοιποι σήμερα + 29 ημέρες
@@ -1084,6 +1277,18 @@
         cell.appendChild(arrowRow);
       }
 
+      // ⚡ αλλαγή την ίδια μέρα · ✓ όλες οι αναχωρήσεις καθαρίστηκαν
+      if(!outRange && departures.length){
+        const turn = departures.some(b=> isTurnover(b.propertyId, iso) && arrivals.some(a=>a.propertyId===b.propertyId));
+        const allClean = departures.every(b=> cleaningOf(b));
+        if(turn || allClean){
+          const f = document.createElement('div');
+          f.className = 'cell-flags';
+          f.innerHTML = (turn ? '<span class="f-turn">⚡</span>' : '') + (allClean ? '<span class="f-clean">✓</span>' : '');
+          cell.appendChild(f);
+        }
+      }
+
       cell.onclick = ()=>{
         if(outRange){
           const r = viewRange();
@@ -1131,8 +1336,10 @@
   function renderAll(){
     clampMonth();
     renderLegend();
+    renderToday();
     renderCalendar();
     refreshAccessUI();
+    renderIssuesBadge();
   }
 
   function refreshAccessUI(){
@@ -1172,11 +1379,11 @@
     }
     if(arrivals.length){
       const h = document.createElement('h3'); h.textContent='Αφίξεις'; list.appendChild(h);
-      arrivals.forEach(b=> list.appendChild(eventRow(b,'in')));
+      arrivals.forEach(b=> list.appendChild(eventRow(b,'in', iso)));
     }
     if(departures.length){
       const h = document.createElement('h3'); h.textContent='Αναχωρήσεις'; list.appendChild(h);
-      departures.forEach(b=> list.appendChild(eventRow(b,'out')));
+      departures.forEach(b=> list.appendChild(eventRow(b,'out', iso)));
     }
     if(occupied.length){
       const h = document.createElement('h3'); h.textContent='Ήδη μέσα'; list.appendChild(h);
@@ -1187,7 +1394,7 @@
     document.getElementById('day-overlay').classList.add('show');
   }
 
-  function eventRow(b, type){
+  function eventRow(b, type, iso){
     const p = propById(b.propertyId);
     const row = document.createElement('div');
     row.className = 'event-row';
@@ -1195,20 +1402,220 @@
     const src = sourceLabel(b);
     const isDefaultName = b.ext && (b.guest==='Airbnb' || b.guest==='Booking.com');
     const guestName = b.guest && !isDefaultName ? b.guest : 'χωρίς όνομα';
+    const turn = iso && (type==='in' || type==='out') && isTurnover(b.propertyId, iso);
+    const clean = type==='out' ? cleaningOf(b) : null;
     row.innerHTML = `
       <div class="bar" style="background:${p?p.color:'#999'}"></div>
       <div class="type">${ioIcon(type)}</div>
       <div class="info">
-        <div class="prop">${p?esc(p.name):'—'}${src?`<span class="src-tag">${src}</span>`:''}${people?`<span class="people-badge">${people}</span>`:''}</div>
+        <div class="prop">${p?esc(p.name):'—'}<button class="info-btn" title="Πληροφορίες καταλύματος">ⓘ</button>${src?`<span class="src-tag">${src}</span>`:''}${people?`<span class="people-badge">${people}</span>`:''}${turn?'<span class="badge-turn">⚡ Ίδια μέρα</span>':''}</div>
         <div class="guest">${esc(guestName)}${b.notes?' · '+esc(b.notes):''}</div>
+        ${clean ? `<div class="clean-meta">✓ ${esc(shortName(clean.by))} · ${fmtTime(clean.at)}</div>` : ''}
       </div>
     `;
+    row.querySelector('.info-btn').onclick = (e)=>{ e.stopPropagation(); openPropInfo(b.propertyId); };
+    if(type === 'out'){
+      const cb = document.createElement('button');
+      cb.className = 'clean-btn' + (clean ? ' done' : '');
+      cb.textContent = clean ? '✓ Καθαρίστηκε' : 'Καθαρίστηκε;';
+      cb.onclick = (e)=>{ e.stopPropagation(); toggleCleaning(b, cb); };
+      row.appendChild(cb);
+    }
     row.onclick = ()=> requireEditor(()=>{
       document.getElementById('day-overlay').classList.remove('show');
       openForm(b);
     });
     return row;
   }
+
+  // ---------- καρτέλα καταλύματος ----------
+
+  const INFO_FIELDS = [
+    ['address', 'Διεύθυνση', 'text'],
+    ['checkinTime', 'Ώρα check-in', 'text'],
+    ['checkoutTime', 'Ώρα check-out', 'text'],
+    ['linens', 'Λευκά είδη / σημειώσεις καθαρισμού', 'textarea'],
+    ['lockCode', 'Κωδικός καταλύματος (κλειδαριά / θυρίδα)', 'text']
+  ];
+
+  function copyText(txt){
+    const ok = ()=> showToast('Αντιγράφηκε');
+    const fallback = ()=>{
+      const ta = document.createElement('textarea');
+      ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      let done = false;
+      try{ done = document.execCommand('copy'); }catch(e){}
+      ta.remove();
+      if(done) ok(); else showToast('Πάτα παρατεταμένα πάνω στον κωδικό για αντιγραφή');
+    };
+    if(navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(ok, fallback);
+    else fallback();
+  }
+
+  function openPropInfo(propId){
+    const p = propById(propId);
+    if(!p || !getVisibleProperties().some(x=>x.id===propId)) return;
+    document.getElementById('info-title').textContent = p.name;
+    const body = document.getElementById('info-body');
+    body.innerHTML = '';
+    let any = false;
+    INFO_FIELDS.forEach(([key, label])=>{
+      const val = (p[key] || '').trim();
+      if(!val) return;
+      any = true;
+      const row = document.createElement('div');
+      row.className = 'info-row';
+      if(key === 'lockCode'){
+        row.innerHTML = `<div class="k">${label}</div><div class="info-code"><div class="v">${esc(val)}</div><button class="clean-btn">Αντιγραφή</button></div>`;
+        row.querySelector('button').onclick = ()=> copyText(val);
+      } else {
+        row.innerHTML = `<div class="k">${label}</div><div class="v">${esc(val)}</div>`;
+      }
+      body.appendChild(row);
+    });
+    if(!any){
+      body.innerHTML = '<p class="empty-hint">' + (isAdmin
+        ? 'Δεν έχουν συμπληρωθεί πληροφορίες. Συμπλήρωσέ τες από τις Ρυθμίσεις → «Πληροφορίες καταλύματος».'
+        : 'Ο διαχειριστής δεν έχει συμπληρώσει ακόμα πληροφορίες για αυτό το κατάλυμα.') + '</p>';
+    }
+    document.getElementById('info-overlay').classList.add('show');
+  }
+  document.getElementById('info-close-btn').onclick = ()=> document.getElementById('info-overlay').classList.remove('show');
+
+  // ---------- αναφορές προβλημάτων ----------
+
+  let knownIssueIds = null; // για ειδοποίηση όταν έρχεται νέα αναφορά
+  let issueProp = null;
+
+  function visibleIssues(){
+    const ids = getVisibleProperties().map(p=>p.id);
+    return Object.keys(state.issues || {})
+      .map(id => Object.assign({ id }, state.issues[id]))
+      .filter(i => i && (isAdmin || ids.includes(i.propertyId) || i.byUid === (currentUser && currentUser.uid)))
+      .sort((a,b)=> (b.at||0) - (a.at||0));
+  }
+
+  function renderIssuesBadge(){
+    const badge = document.getElementById('issues-badge');
+    const open = dataLoaded ? visibleIssues().filter(i=>!i.resolved).length : 0;
+    badge.textContent = open;
+    badge.style.display = open ? 'block' : 'none';
+  }
+
+  function notifyNewIssues(){
+    const ids = Object.keys(state.issues || {});
+    if(knownIssueIds === null){ knownIssueIds = new Set(ids); return; }
+    ids.forEach(id=>{
+      if(knownIssueIds.has(id)) return;
+      knownIssueIds.add(id);
+      const i = state.issues[id];
+      if(!i || i.resolved || i.byUid === currentUser.uid) return;
+      if(!isAdmin && !getVisibleProperties().some(p=>p.id===i.propertyId)) return;
+      const p = propById(i.propertyId);
+      showToast('⚠ Νέο πρόβλημα · ' + (p ? p.name : '') + ': ' + String(i.text||'').slice(0, 60), 5000);
+    });
+  }
+
+  function openIssues(){
+    if(!dataLoaded) return;
+    const list = document.getElementById('issues-list');
+    list.innerHTML = '';
+    const all = visibleIssues();
+    const open = all.filter(i=>!i.resolved);
+    const done = all.filter(i=>i.resolved).slice(0, 10);
+    if(!all.length){
+      list.innerHTML = '<p class="empty-hint">Δεν υπάρχουν αναφορές προβλημάτων.</p>';
+    }
+    const addCard = (i)=>{
+      const p = propById(i.propertyId);
+      const card = document.createElement('div');
+      card.className = 'issue-card' + (i.resolved ? ' resolved' : '');
+      card.innerHTML = `
+        <div class="prop" style="font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:6px;"><span class="dot" style="background:${p?p.color:'#999'}"></span>${p?esc(p.name):'—'}${i.resolved?' · <span style="color:#176B3A">✓ Λύθηκε</span>':''}</div>
+        <div class="t">${esc(i.text)}</div>
+        <div class="m">${esc(shortName(i.by))} · ${fmtTime(i.at)}</div>`;
+      if(isAdmin){
+        const act = document.createElement('div');
+        act.className = 'issue-actions';
+        if(!i.resolved){
+          const r = document.createElement('button');
+          r.textContent = '✓ Λύθηκε';
+          r.onclick = async ()=>{
+            try{ await wsRef.child('issues/'+i.id).update({ resolved:true, resolvedAt: Date.now() }); showToast('Σημειώθηκε ως λυμένο'); }
+            catch(e){ memberSaveError(); }
+          };
+          act.appendChild(r);
+        }
+        const del = document.createElement('button');
+        del.className = 'del';
+        del.textContent = 'Διαγραφή';
+        del.onclick = async ()=>{
+          if(!armButton(del, 'Σίγουρα;')) return;
+          try{ await wsRef.child('issues/'+i.id).remove(); showToast('Η αναφορά διαγράφηκε'); }
+          catch(e){ memberSaveError(); }
+        };
+        act.appendChild(del);
+        card.appendChild(act);
+      }
+      list.appendChild(card);
+    };
+    if(open.length){
+      const h = document.createElement('h3'); h.textContent = 'Ανοιχτά (' + open.length + ')'; h.style.marginTop = '0'; list.appendChild(h);
+      open.forEach(addCard);
+    }
+    if(done.length){
+      const h = document.createElement('h3'); h.textContent = 'Λυμένα'; list.appendChild(h);
+      done.forEach(addCard);
+    }
+
+    // επιλογή καταλύματος για νέα αναφορά
+    const props = getVisibleProperties();
+    if(!props.some(p=>p.id===issueProp)) issueProp = activeFilter || (props[0] && props[0].id) || null;
+    const picker = document.getElementById('issue-prop-picker');
+    picker.innerHTML = '';
+    props.forEach(p=>{
+      const pill = document.createElement('div');
+      const sel = p.id === issueProp;
+      pill.className = 'prop-pill' + (sel ? ' selected' : '');
+      pill.style.background = sel ? p.color : '#fff';
+      pill.style.color = sel ? '#fff' : 'var(--ink)';
+      pill.innerHTML = `<span class="dot" style="background:${sel?'#fff':p.color}"></span>${esc(p.name)}`;
+      pill.onclick = ()=>{ issueProp = p.id; openIssues(); };
+      picker.appendChild(pill);
+    });
+    document.getElementById('issues-overlay').classList.add('show');
+  }
+
+  document.getElementById('issues-btn').onclick = openIssues;
+  document.getElementById('issues-close-btn').onclick = ()=> document.getElementById('issues-overlay').classList.remove('show');
+  document.getElementById('issue-send-btn').onclick = async ()=>{
+    const ta = document.getElementById('issue-text');
+    const text = ta.value.trim();
+    if(!issueProp){ showToast('Δεν έχεις πρόσβαση σε κάποιο κατάλυμα'); return; }
+    if(!text){ showToast('Γράψε ποιο είναι το πρόβλημα'); return; }
+    const btn = document.getElementById('issue-send-btn');
+    btn.disabled = true;
+    try{
+      const ref = wsRef.child('issues').push();
+      await ref.set({
+        propertyId: issueProp,
+        text: text.slice(0, 1000),
+        by: currentUser.email || '',
+        byUid: currentUser.uid,
+        at: Date.now(),
+        resolved: false
+      });
+      if(knownIssueIds) knownIssueIds.add(ref.key);
+      ta.value = '';
+      showToast('Η αναφορά στάλθηκε στον διαχειριστή');
+      openIssues();
+    }catch(e){
+      console.error(e);
+      showToast('Σφάλμα αποστολής, δοκίμασε ξανά');
+    }
+    btn.disabled = false;
+  };
 
   document.getElementById('day-close-btn').onclick = ()=>{
     document.getElementById('day-overlay').classList.remove('show');
@@ -1540,6 +1947,16 @@
           const m = k.match(/_(\d{4}-\d{2}-\d{2})$/);
           if(m && m[1] < cutoff) delete data.hiddenExt[k];
         });
+        // ...και παλιές σημειώσεις καθαρισμού και λυμένα προβλήματα
+        Object.keys(data.cleaning).forEach(k=>{
+          const c = data.cleaning[k];
+          if(!c || (c.checkout && c.checkout < cutoff)) delete data.cleaning[k];
+        });
+        const issueCutoff = Date.now() - 60*24*3600*1000;
+        Object.keys(data.issues).forEach(k=>{
+          const i = data.issues[k];
+          if(!i || (i.resolved && (i.resolvedAt || i.at || 0) < issueCutoff)) delete data.issues[k];
+        });
         data.icalLastSync = Date.now();
       });
       if(manual){
@@ -1680,7 +2097,9 @@
       checkUserRoles();
       renderAll();
       setSyncedNote();
-      if(document.getElementById('settings-overlay').classList.contains('show')) openSettings();
+      notifyNewIssues();
+      if(document.getElementById('settings-overlay').classList.contains('show') && !settingsBusy()) openSettings();
+      if(document.getElementById('issues-overlay').classList.contains('show')) openIssues();
       syncIndexEntry(wid);
       maybeAutoSync();
     }, err=>{
@@ -1695,7 +2114,8 @@
     isAdmin = false;
     state = emptyState();
     activeFilter = null;
-    ['day-overlay','form-overlay','settings-overlay'].forEach(id=>
+    knownIssueIds = null;
+    ['day-overlay','form-overlay','settings-overlay','info-overlay','issues-overlay'].forEach(id=>
       document.getElementById(id).classList.remove('show'));
   }
 
@@ -1903,6 +2323,14 @@
 
   function memberSaveError(){ showToast('Σφάλμα αποθήκευσης, δοκίμασε ξανά'); }
 
+  const openInfoDetails = new Set(); // ποιες «Πληροφορίες καταλύματος» είναι ανοιχτές στις ρυθμίσεις
+
+  // Δεν ξαναζωγραφίζουμε τις ρυθμίσεις όσο κάποιος γράφει σε πεδίο τους
+  function settingsBusy(){
+    const a = document.activeElement;
+    return !!(a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA') && document.getElementById('settings-overlay').contains(a));
+  }
+
   function openSettings(){
     checkUserRoles();
     const list = document.getElementById('settings-list');
@@ -1964,6 +2392,41 @@
         <div class="color-row"></div>
       `;
       list.appendChild(row);
+
+      if(!isAdmin){
+        const ib = document.createElement('button');
+        ib.className = 'clean-btn';
+        ib.textContent = 'ⓘ Πληροφορίες καταλύματος';
+        ib.onclick = ()=> openPropInfo(p.id);
+        row.appendChild(ib);
+      }
+
+      if(isAdmin){
+        // Πληροφορίες που βλέπουν όσοι έχουν πρόσβαση στο κατάλυμα
+        const det = document.createElement('details');
+        det.className = 'prop-info';
+        det.open = openInfoDetails.has(p.id);
+        det.ontoggle = ()=>{ if(det.open) openInfoDetails.add(p.id); else openInfoDetails.delete(p.id); };
+        det.innerHTML = '<summary>Πληροφορίες καταλύματος (διεύθυνση, ώρες, κωδικός)</summary>' +
+          INFO_FIELDS.map(([key, label, kind])=> kind === 'textarea'
+            ? `<textarea class="info-input" data-id="${esc(p.id)}" data-field="${key}" placeholder="${label}">${esc(p[key]||'')}</textarea>`
+            : `<input type="text" class="info-input" data-id="${esc(p.id)}" data-field="${key}" placeholder="${label}" value="${esc(p[key]||'')}">`
+          ).join('') +
+          '<p class="empty-hint" style="font-size:12px;">Τα βλέπουν όλοι όσοι έχουν πρόσβαση σε αυτό το κατάλυμα.</p>';
+        row.appendChild(det);
+        [...det.querySelectorAll('.info-input')].forEach(inp=>{
+          inp.onchange = async ()=>{
+            const id = inp.dataset.id, field = inp.dataset.field, val = inp.value.trim();
+            try{
+              await mutateWs(data=>{
+                const prop = data.properties.find(x=>x.id===id);
+                if(prop) prop[field] = val;
+              });
+              showToast('Αποθηκεύτηκε');
+            }catch(e){ memberSaveError(); }
+          };
+        });
+      }
 
       if(isAdmin){
         const linkBox = document.createElement('div');
@@ -2225,7 +2688,7 @@
   };
 
   // κλείσιμο με πάτημα στο φόντο (όχι η σύνδεση χωρίς login, όχι η επιλογή ημερολογίου χωρίς ημερολόγιο)
-  ['day-overlay','form-overlay','settings-overlay','login-overlay','ws-overlay'].forEach(id=>{
+  ['day-overlay','form-overlay','settings-overlay','login-overlay','ws-overlay','info-overlay','issues-overlay'].forEach(id=>{
     document.getElementById(id).addEventListener('click', (e)=>{
       if(e.target.id !== id) return;
       if(id==='login-overlay' && !auth.currentUser) return;
