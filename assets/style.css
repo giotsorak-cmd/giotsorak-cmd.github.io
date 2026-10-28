@@ -597,3 +597,15 @@ html, body { overflow-x: clip; }
   .prop-body .book { order: 2; position: static; margin-bottom: 40px; }
   .prop-main > section:not(:first-child) { order: 3; }
 }
+
+/* Κινητό: το όνομα του καταλύματος πάνω από τη φωτογραφία, το κουμπί στο τέλος */
+@media (max-width: 640px) {
+  .stay.stay-card { display: flex; flex-direction: column; }
+  .stay-card .stay-body, .stay-card .stay-head { display: contents; }
+  .stay-card .stay-head > div { order: 1; margin-bottom: 12px; }
+  .stay-card .stay-visuals { order: 2; margin-bottom: 14px; }
+  .stay-card .tagline { order: 3; margin: 0 0 8px; }
+  .stay-card .facts { order: 4; margin-top: 0; }
+  .stay-card .avail-note, .stay-card .price-from { order: 5; }
+  .stay-card .stay-head > .btn { order: 6; margin-top: 16px; }
+}
