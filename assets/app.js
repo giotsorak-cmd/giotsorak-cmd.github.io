@@ -23,7 +23,10 @@
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
   };
-  let lang = qs.get('lang') || store.get('cs_lang') || (navigator.language || 'el').slice(0, 2).toLowerCase();
+  // Οι μηχανές αναζήτησης (Googlebot κ.λπ.) βλέπουν τη σελίδα στα ελληνικά, για να βρίσκεται σε ελληνικές αναζητήσεις
+  const isBot = /bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent || '');
+  const langChosen = qs.get('lang') || store.get('cs_lang');
+  let lang = langChosen || (isBot ? 'el' : (navigator.language || 'el').slice(0, 2).toLowerCase());
   if (!C.languages.includes(lang)) lang = C.languages.includes('en') ? 'en' : C.languages[0];
   document.documentElement.lang = lang === 'sr' ? 'sr-Latn' : lang;
   const LOCALES = { el: 'el-GR', en: 'en-GB', de: 'de-DE', bg: 'bg-BG', sr: 'sr-Latn-RS', ru: 'ru-RU', ro: 'ro-RO', fr: 'fr-FR', it: 'it-IT', tr: 'tr-TR' };
@@ -236,7 +239,7 @@
 
   // ─── Αρχική ───
   function initHome() {
-    document.title = `${C.brand} — ${t('site_title')}`;
+    if (lang !== 'el' || !document.title) document.title = `${C.brand} — ${t('site_title')}`;
     $('#hero-title').textContent = t('hero_title');
     $('#hero-lead').textContent = t('hero_lead');
     const heroPhotos = (C.heroPhotos || (C.heroPhoto ? [{ src: C.heroPhoto }] : [])).filter((x) => x && x.src);
@@ -421,7 +424,7 @@
   function initStay() {
     const p = propById(qs.get('id') || document.body.dataset.stay);
     if (!p) { location.replace(withLang('index.html')); return; }
-    document.title = `${p.name} — ${C.brand}`;
+    if (lang !== 'el' || !document.body.dataset.stay) document.title = `${p.name} — ${C.brand}`;
     const city = C.cities.find((c) => c.id === p.city);
 
     $('#prop-head').replaceChildren(
