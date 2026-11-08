@@ -1,7 +1,4 @@
 User-agent: *
-Disallow: /krateseis/
-Disallow: /esoda/
-Disallow: /imerologio/
-Disallow: /_android/
+Allow: /
 
 Sitemap: https://comfystay.gr/sitemap.xml
