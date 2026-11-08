@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+# Προσωπικές εφαρμογές στο ίδιο repository: όχι στις αναζητήσεις
+Disallow: /esoda/
+Disallow: /krateseis/
+Disallow: /imerologio/
+Disallow: /_android/
 
 Sitemap: https://comfystay.gr/sitemap.xml
