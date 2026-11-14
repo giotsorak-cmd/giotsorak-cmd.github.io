@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Φτιάχνει τις σελίδες σε άλλες γλώσσες (/en/, /bg/, /sr/) από τις ελληνικές και το config.js,
+ * Φτιάχνει τις σελίδες σε άλλες γλώσσες (/en/, /de/, /bg/, /sr/, /ru/) από τις ελληνικές και το config.js,
  * βάζει hreflang σε όλες τις σελίδες και ενημερώνει το sitemap.xml.
  *
  * Τρέξε το από τον φάκελο του site, κάθε φορά που αλλάζεις κείμενα στο config.js ή στις ελληνικές σελίδες:
@@ -37,6 +37,11 @@ const LANGS = {
     locality: { 'Θεσσαλονίκη': 'Thessaloniki', 'Πυλαία': 'Pylaia', 'Σιάτιστα': 'Siatista' },
     region: { 'Κεντρική Μακεδονία': 'Central Macedonia', 'Δυτική Μακεδονία': 'Western Macedonia' },
   },
+  de: {
+    htmlLang: 'de', hreflang: 'de', ogLocale: 'de_DE', intl: 'de-DE', photo: 'Foto',
+    locality: { 'Θεσσαλονίκη': 'Thessaloniki', 'Πυλαία': 'Pylaia', 'Σιάτιστα': 'Siatista' },
+    region: { 'Κεντρική Μακεδονία': 'Zentralmakedonien', 'Δυτική Μακεδονία': 'Westmakedonien' },
+  },
   bg: {
     htmlLang: 'bg', hreflang: 'bg', ogLocale: 'bg_BG', intl: 'bg-BG', photo: 'снимка',
     locality: { 'Θεσσαλονίκη': 'Солун', 'Πυλαία': 'Пилея', 'Σιάτιστα': 'Сятища' },
@@ -46,6 +51,11 @@ const LANGS = {
     htmlLang: 'sr-Latn', hreflang: 'sr-Latn', ogLocale: 'sr_RS', intl: 'sr-Latn-RS', photo: 'fotografija',
     locality: { 'Θεσσαλονίκη': 'Solun', 'Πυλαία': 'Pilea', 'Σιάτιστα': 'Sjatista' },
     region: { 'Κεντρική Μακεδονία': 'Centralna Makedonija', 'Δυτική Μακεδονία': 'Zapadna Makedonija' },
+  },
+  ru: {
+    htmlLang: 'ru', hreflang: 'ru', ogLocale: 'ru_RU', intl: 'ru-RU', photo: 'фото',
+    locality: { 'Θεσσαλονίκη': 'Салоники', 'Πυλαία': 'Пилеа', 'Σιάτιστα': 'Сьятиста' },
+    region: { 'Κεντρική Μακεδονία': 'Центральная Македония', 'Δυτική Μακεδονία': 'Западная Македония' },
   },
 };
 
@@ -77,6 +87,34 @@ const SEO = {
     'guest-house-siatista.html': {
       title: 'Family Guest House in Siatista, Sleeps 8 | Guest House',
       desc: 'Spacious 110 m² house on Tria Pigadia square in Siatista, next to tavernas and the old mansions. 3 bedrooms, sleeps 8. 25 min from Kozani, 36 from Kastoria.',
+    },
+  },
+  de: {
+    'index.html': {
+      title: 'Ferienwohnungen in Thessaloniki & Siatista | ComfyStay in Greece',
+      desc: 'Ferienwohnungen mit Aussicht in Thessaloniki, nahe Weißem Turm, Messe und Uferpromenade, und Häuser in Siatista bei den alten Herrenhäusern. WLAN, Klimaanlage.',
+      h1: 'ComfyStay in Greece: Ferienwohnungen in Thessaloniki und Siatista',
+      place: 'Thessaloniki; Siatista',
+    },
+    'panoramic-view-apartment.html': {
+      title: 'Wohnung mit Panoramablick in Thessaloniki | Panoramic View',
+      desc: 'Renovierte 60-m²-Wohnung mit Blick vom Weißen Turm bis Seich Sou. 8 Min. zu Fuß zur Promenade, 10 zur Messe, 17 zum Weißen Turm. Bis 6 Personen.',
+    },
+    'gg-apartment.html': {
+      title: 'Wohnung in Thessaloniki nahe am Meer | G&G Apartment',
+      desc: 'Moderne 78-m²-Wohnung an der Vasilissis-Olgas-Allee, wenige Minuten von Promenade und Volkskundemuseum, nahe der Metro. 2 Schlafzimmer, bis 6 Personen.',
+    },
+    'pilea-comfy-home.html': {
+      title: 'Wohnung in Pylaia mit kostenlosem Parkplatz | Pilea Comfy Home',
+      desc: '87-m²-Wohnung in Pylaia, Thessaloniki, ruhig an der Ringstraße, schnell im Zentrum, am Flughafen und auf Chalkidiki. Kostenloser Privatparkplatz.',
+    },
+    'suite-apartment-siatista.html': {
+      title: 'Wohnung mit großer Terrasse in Siatista | Suite Apartment',
+      desc: 'Moderne Wohnung in Siatista mit 2 Schlafzimmern und großer Terrasse, nahe den Herrenhäusern. 25 Min. von Kozani, 36 von Kastoria. Bis 6 Personen, Parkplatz.',
+    },
+    'guest-house-siatista.html': {
+      title: 'Ferienhaus für Familien in Siatista, bis 8 Personen | Guest House',
+      desc: 'Geräumiges 110-m²-Haus am Platz Tria Pigadia in Siatista, neben Tavernen und Herrenhäusern. 3 Schlafzimmer, bis 8 Personen. 25 Min. von Kozani.',
     },
   },
   bg: {
@@ -133,6 +171,34 @@ const SEO = {
     'guest-house-siatista.html': {
       title: 'Kuća za porodice u Sjatisti, do 8 osoba | Guest House',
       desc: 'Prostrana kuća od 110 m² na trgu Tria Pigadja u Sjatisti, pored taverni i starih vila. 3 spavaće sobe, do 8 osoba. 25 min od Kozanija, 36 od Kastorije.',
+    },
+  },
+  ru: {
+    'index.html': {
+      title: 'Апартаменты в Салониках и Сьятисте | ComfyStay in Greece',
+      desc: 'Апартаменты с видом в Салониках, рядом с Белой башней, Ярмаркой и набережной, и дома в Сьятисте у старинных особняков. Wi-Fi, кондиционер.',
+      h1: 'ComfyStay in Greece: апартаменты для отдыха в Салониках и Сьятисте',
+      place: 'Салоники; Сьятиста',
+    },
+    'panoramic-view-apartment.html': {
+      title: 'Квартира с панорамным видом в Салониках | Panoramic View',
+      desc: 'Квартира 60 м² после ремонта с видом от Белой башни до Сейх-Су. 8 мин пешком до набережной, 10 до Ярмарки, 17 до Белой башни. До 6 гостей.',
+    },
+    'gg-apartment.html': {
+      title: 'Квартира в Салониках у моря | G&G Apartment',
+      desc: 'Современная квартира 78 м² на проспекте Василиссис Ольгас, в паре минут от набережной и Фольклорного музея, рядом с метро. 2 спальни, до 6 гостей.',
+    },
+    'pilea-comfy-home.html': {
+      title: 'Квартира в Пилеа с бесплатной парковкой | Pilea Comfy Home',
+      desc: 'Квартира 87 м² в Пилеа, Салоники, в тихом районе у кольцевой дороги, рядом центр, аэропорт и Халкидики. Бесплатная частная парковка.',
+    },
+    'suite-apartment-siatista.html': {
+      title: 'Квартира с большой террасой в Сьятисте | Suite Apartment',
+      desc: 'Современная квартира в Сьятисте с 2 спальнями и большой террасой, у старинных особняков. 25 мин от Козани, 36 от Кастории. До 6 гостей, парковка.',
+    },
+    'guest-house-siatista.html': {
+      title: 'Дом для семей в Сьятисте, до 8 гостей | Guest House',
+      desc: 'Просторный дом 110 м² на площади Триа Пигадия в Сьятисте, рядом с тавернами и особняками. 3 спальни, до 8 гостей. 25 мин от Козани, 36 от Кастории.',
     },
   },
 };
