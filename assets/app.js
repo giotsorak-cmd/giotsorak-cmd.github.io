@@ -23,7 +23,29 @@
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
   };
-  let lang = qs.get('lang') || store.get('cs_lang') || (navigator.language || 'el').slice(0, 2).toLowerCase();
+  // Γλώσσες με δικές τους σελίδες: ελληνικά στη ρίζα, αγγλικά στο /en/. Οι άλλες γλώσσες ανοίγουν με ?lang=
+  // Έτσι το Google βλέπει ξεχωριστή, σταθερή σελίδα για κάθε γλώσσα (ελληνικά και αγγλικά).
+  const LANG_DIRS = { el: '', en: 'en/' };
+  const PAGE_LANG = document.documentElement.dataset.lang || null; // μόνο στις σελίδες με ελληνική & αγγλική έκδοση
+  const ROOT = PAGE_LANG && LANG_DIRS[PAGE_LANG] ? '../' : '';
+  if (ROOT) {
+    // Οι φωτογραφίες στο config.js είναι γραμμένες σε σχέση με τη ρίζα (img/...)
+    const fix = (o) => {
+      for (const k in o) {
+        if (typeof o[k] === 'string' && o[k].startsWith('img/')) o[k] = ROOT + o[k];
+        else if (o[k] && typeof o[k] === 'object') fix(o[k]);
+      }
+    };
+    fix(C);
+  }
+  const LOCAL_PAGES = new Set(['index.html', ...C.properties.map(stayPage)]);
+  const storedLang = store.get('cs_lang');
+  const browserLang = (navigator.language || '').slice(0, 2).toLowerCase();
+  let lang = qs.get('lang') ||
+    (PAGE_LANG
+      // Σε σελίδα με δική της γλώσσα δείχνουμε αυτή τη γλώσσα (και στο Google), εκτός αν ο επισκέπτης διάλεξε π.χ. γερμανικά
+      ? (storedLang && !(storedLang in LANG_DIRS) && C.languages.includes(storedLang) ? storedLang : PAGE_LANG)
+      : (storedLang || browserLang || 'el'));
   if (!C.languages.includes(lang)) lang = C.languages.includes('en') ? 'en' : C.languages[0];
   document.documentElement.lang = lang === 'sr' ? 'sr-Latn' : lang;
   const LOCALES = { el: 'el-GR', en: 'en-GB', de: 'de-DE', bg: 'bg-BG', sr: 'sr-Latn-RS', ru: 'ru-RU', ro: 'ro-RO', fr: 'fr-FR', it: 'it-IT', tr: 'tr-TR' };
@@ -70,7 +92,23 @@
     for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid.nodeType ? kid : String(kid));
     return el;
   }
-  const withLang = (href) => href + (href.includes('?') ? '&' : '?') + 'lang=' + lang;
+  // Σύνδεσμος προς σελίδα του site στη γλώσσα l (π.χ. pilea-comfy-home.html → ../en/pilea-comfy-home.html)
+  function withLang(href, l = lang) {
+    if (/^([a-z]+:|\/\/|#)/i.test(href)) return href;
+    const [, file = '', q = '', hash = ''] = href.match(/^([^?#]*)(\?[^#]*)?(#.*)?$/) || [];
+    const param = (qq) => (qq ? qq + '&' : '?') + 'lang=' + l;
+    if (LOCAL_PAGES.has(file) && l in LANG_DIRS) {
+      const dir = LANG_DIRS[l];
+      return ROOT + dir + (dir && file === 'index.html' ? '' : file) + q + hash;
+    }
+    return ROOT + file + param(q) + hash;
+  }
+  // Η ίδια σελίδα σε άλλη γλώσσα (για τα κουμπιά γλώσσας)
+  function langUrl(l) {
+    const file = location.pathname.split('/').pop() || 'index.html';
+    if (PAGE_LANG && LOCAL_PAGES.has(file)) return withLang(file, l) + location.hash;
+    const u = new URL(location.href); u.searchParams.set('lang', l); return u.toString();
+  }
   const propById = (id) => C.properties.find((p) => p.id === id);
   // Στη σελίδα εμφανίζονται μόνο τα καταλύματα που έχουν φωτογραφίες (ή show: true στο config)
   const visible = C.properties.filter((p) => p.show === true || (p.show !== false && p.photos && p.photos.length));
@@ -150,7 +188,7 @@
               ? h('div', { class: 'lang-switch', role: 'group', 'aria-label': 'Language' },
                   C.languages.map((l) => h('button', {
                     type: 'button', 'aria-pressed': String(l === lang), title: (T[l] && T[l].langName) || l,
-                    onclick: () => { store.set('cs_lang', l); const u = new URL(location.href); u.searchParams.set('lang', l); location.href = u.toString(); },
+                    onclick: () => { store.set('cs_lang', l); location.href = langUrl(l); },
                   }, h('span', {}, l.toUpperCase()))))
               : null,
           ),
@@ -236,7 +274,7 @@
 
   // ─── Αρχική ───
   function initHome() {
-    document.title = `${C.brand} — ${t('site_title')}`;
+    if (lang !== PAGE_LANG) document.title = `${C.brand} — ${t('site_title')}`; // αλλιώς μένει ο τίτλος της σελίδας (για το Google)
     $('#hero-title').textContent = t('hero_title');
     $('#hero-lead').textContent = t('hero_lead');
     const heroPhotos = (C.heroPhotos || (C.heroPhoto ? [{ src: C.heroPhoto }] : [])).filter((x) => x && x.src);
@@ -421,7 +459,7 @@
   function initStay() {
     const p = propById(qs.get('id') || document.body.dataset.stay);
     if (!p) { location.replace(withLang('index.html')); return; }
-    document.title = `${p.name} — ${C.brand}`;
+    if (lang !== PAGE_LANG) document.title = `${p.name} — ${C.brand}`;
     const city = C.cities.find((c) => c.id === p.city);
 
     $('#prop-head').replaceChildren(
@@ -982,6 +1020,18 @@
     else if (tokenIn.value) load();
   }
 
+  // Επισκέπτης με άλλη γλώσσα στον browser: μικρή μπάρα «Δείτε τη σελίδα στα …» (χωρίς αυτόματη ανακατεύθυνση)
+  function langHint() {
+    if (!PAGE_LANG || qs.get('lang') || storedLang || store.get('cs_lang_hint')) return;
+    const l = browserLang;
+    if (!C.languages.includes(l) || l === lang || !(T[l] && T[l].lang_hint)) return;
+    const bar = h('div', { class: 'lang-hint', lang: l },
+      h('a', { href: langUrl(l), onclick: () => store.set('cs_lang', l) }, T[l].lang_hint + ' →'),
+      h('button', { type: 'button', 'aria-label': (T[l] && T[l].close) || 'Close', onclick: () => { store.set('cs_lang_hint', '1'); bar.remove(); } }, '×'));
+    document.body.prepend(bar);
+  }
+
   renderChrome();
+  langHint();
   ({ home: initHome, stay: initStay, success: initSuccess, failed: initFailed, terms: initTerms, admin: initAdmin })[page]?.();
 })();

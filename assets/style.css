@@ -609,3 +609,8 @@ html, body { overflow-x: clip; }
   .stay-card .avail-note, .stay-card .price-from { order: 5; }
   .stay-card .stay-head > .btn { order: 6; margin-top: 16px; }
 }
+
+/* Μπάρα «Δείτε τη σελίδα στα …» */
+.lang-hint { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 10px var(--gutter); background: var(--ochre-soft); color: var(--ink); font: 500 var(--step--1) var(--sans); }
+.lang-hint a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.lang-hint button { border: 0; background: none; font-size: 1.4rem; line-height: 1; cursor: pointer; color: var(--muted); padding: 4px 8px; }

@@ -1265,3 +1265,9 @@ Object.assign(window.I18N, {
     "place_agiasofia": "Церковь Святой Софии"
   }
 });
+
+// Μπάρα «Δείτε τη σελίδα στα …» για επισκέπτες με άλλη γλώσσα στον browser
+Object.entries({
+  el: 'Δείτε τη σελίδα στα ελληνικά', en: 'View this page in English', de: 'Diese Seite auf Deutsch ansehen',
+  bg: 'Вижте страницата на български', sr: 'Pogledajte stranicu na srpskom', ru: 'Открыть страницу на русском',
+}).forEach(([l, s]) => { if (window.I18N[l]) window.I18N[l].lang_hint = s; });
