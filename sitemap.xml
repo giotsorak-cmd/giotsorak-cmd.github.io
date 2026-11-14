@@ -4,6 +4,8 @@
     <loc>https://comfystay.gr/</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -14,6 +16,8 @@
     <loc>https://comfystay.gr/panoramic-view-apartment.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/panoramic-view-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/panoramic-view-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -33,6 +37,8 @@
     <loc>https://comfystay.gr/gg-apartment.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/gg-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/gg-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/gg-apartment.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -52,6 +58,8 @@
     <loc>https://comfystay.gr/pilea-comfy-home.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/pilea-comfy-home.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/pilea-comfy-home.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -71,6 +79,8 @@
     <loc>https://comfystay.gr/suite-apartment-siatista.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/suite-apartment-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/suite-apartment-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -90,6 +100,8 @@
     <loc>https://comfystay.gr/guest-house-siatista.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/guest-house-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/guest-house-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/guest-house-siatista.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -109,6 +121,32 @@
     <loc>https://comfystay.gr/en/</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://comfystay.gr/img/hero/thessaloniki-aerial.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/bg/</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://comfystay.gr/img/hero/thessaloniki-aerial.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/sr/</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -119,6 +157,50 @@
     <loc>https://comfystay.gr/en/panoramic-view-apartment.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/panoramic-view-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/bg/panoramic-view-apartment.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/panoramic/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/sr/panoramic-view-apartment.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/panoramic-view-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/panoramic-view-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/panoramic-view-apartment.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -138,6 +220,50 @@
     <loc>https://comfystay.gr/en/gg-apartment.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/gg-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/gg-apartment.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/gg/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/bg/gg-apartment.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/gg-apartment.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/gg/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/gg/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/sr/gg-apartment.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/gg-apartment.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/gg-apartment.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/gg-apartment.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -157,6 +283,50 @@
     <loc>https://comfystay.gr/en/pilea-comfy-home.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/pilea-comfy-home.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/bg/pilea-comfy-home.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/pilea/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/sr/pilea-comfy-home.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/pilea-comfy-home.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/pilea-comfy-home.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/pilea-comfy-home.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -176,6 +346,50 @@
     <loc>https://comfystay.gr/en/suite-apartment-siatista.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/suite-apartment-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/bg/suite-apartment-siatista.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-suite/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/sr/suite-apartment-siatista.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/suite-apartment-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/suite-apartment-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/suite-apartment-siatista.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -195,6 +409,50 @@
     <loc>https://comfystay.gr/en/guest-house-siatista.html</loc>
     <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/guest-house-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/guest-house-siatista.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/bg/guest-house-siatista.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/guest-house-siatista.html"/>
+    <lastmod>2026-11-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/01.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/02.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/03.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/04.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/05.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/06.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/07.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/08.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/09.jpg</image:loc></image:image>
+    <image:image><image:loc>https://comfystay.gr/img/siatista-guesthouse/10.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://comfystay.gr/sr/guest-house-siatista.html</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://comfystay.gr/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://comfystay.gr/en/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://comfystay.gr/bg/guest-house-siatista.html"/>
+    <xhtml:link rel="alternate" hreflang="sr-Latn" href="https://comfystay.gr/sr/guest-house-siatista.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://comfystay.gr/en/guest-house-siatista.html"/>
     <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>

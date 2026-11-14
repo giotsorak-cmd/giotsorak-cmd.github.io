@@ -23,10 +23,10 @@
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch { /* ignore */ } },
   };
-  // Γλώσσες με δικές τους σελίδες: ελληνικά στη ρίζα, αγγλικά στο /en/. Οι άλλες γλώσσες ανοίγουν με ?lang=
-  // Έτσι το Google βλέπει ξεχωριστή, σταθερή σελίδα για κάθε γλώσσα (ελληνικά και αγγλικά).
-  const LANG_DIRS = { el: '', en: 'en/' };
-  const PAGE_LANG = document.documentElement.dataset.lang || null; // μόνο στις σελίδες με ελληνική & αγγλική έκδοση
+  // Γλώσσες με δικές τους σελίδες: ελληνικά στη ρίζα, οι άλλες σε φάκελο (/en/, /bg/, /sr/). Οι υπόλοιπες ανοίγουν με ?lang=
+  // Έτσι το Google βλέπει ξεχωριστή, σταθερή σελίδα για κάθε γλώσσα.
+  const LANG_DIRS = { el: '', en: 'en/', bg: 'bg/', sr: 'sr/' };
+  const PAGE_LANG = document.documentElement.dataset.lang || null; // μόνο στις σελίδες που έχουν εκδόσεις ανά γλώσσα
   const ROOT = PAGE_LANG && LANG_DIRS[PAGE_LANG] ? '../' : '';
   if (ROOT) {
     // Οι φωτογραφίες στο config.js είναι γραμμένες σε σχέση με τη ρίζα (img/...)
