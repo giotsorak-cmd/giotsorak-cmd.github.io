@@ -486,9 +486,9 @@
 
     $('#prop-main').replaceChildren(
       h('section', {}, h('h2', {}, t('about_stay')), factsList(p), h('p', { class: 'desc' }, L(p.description))),
+      availabilitySection(p),
       h('section', {}, h('h2', {}, t('amenities')),
         h('ul', { class: 'amenity-list' }, (p.amenities || []).map((a) => h('li', {}, t('amenity_' + a))))),
-      availabilitySection(p),
       reviewsSection(p),
       h('section', { class: 'practical' }, h('h2', {}, t('practical')),
         h('dl', {},
