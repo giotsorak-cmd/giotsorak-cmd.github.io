@@ -193,9 +193,9 @@ window.COMFY = {
         },
       ],
       ratings: [
-        { source: 'booking', score: 10, scale: 10, count: 7, url: 'https://www.booking.com/Share-8QlRCF' },
-        { source: 'airbnb', score: 5, scale: 5, count: 10, url: 'https://www.airbnb.com/rooms/1747334720248612750' },
-        { source: 'google', score: 5, scale: 5, count: 5, url: 'https://maps.app.goo.gl/ZD98PUCXYvaxP24p7' },
+        { source: 'booking', score: 10, scale: 10, count: 9, url: 'https://www.booking.com/Share-8QlRCF' },
+        { source: 'airbnb', score: 5, scale: 5, count: 11, url: 'https://www.airbnb.com/rooms/1747334720248612750' },
+        { source: 'google', score: 5, scale: 5, count: 7, url: 'https://maps.app.goo.gl/ZD98PUCXYvaxP24p7' },
       ],
     },
     {
@@ -251,8 +251,8 @@ window.COMFY = {
       ],
       ratings: [
         { source: 'booking', score: 9.6, scale: 10, count: 43, url: 'https://www.booking.com/Share-rirvXiH' },
-        { source: 'airbnb', score: 5, scale: 5, count: 13, url: 'https://www.airbnb.gr/rooms/1260155043819083529' },
-        { source: 'google', score: 5, scale: 5, count: 2, url: 'https://maps.app.goo.gl/EFf2A32rm94A1Ebb6' },
+        { source: 'airbnb', score: 5, scale: 5, count: 16, url: 'https://www.airbnb.gr/rooms/1260155043819083529' },
+        { source: 'google', score: 5, scale: 5, count: 3, url: 'https://maps.app.goo.gl/EFf2A32rm94A1Ebb6' },
       ],
     },
     {
@@ -304,9 +304,9 @@ window.COMFY = {
           text: 'Well equipped with nearly everything you need, place stayed cool despite extremely hot weather. Hosts provided an easy check in process and had good, responsive communication and messaged to see how we were getting on. Would happily stay again.' },
       ],
       ratings: [
-        { source: 'booking', score: 9.9, scale: 10, count: 71, url: 'https://www.booking.com/Share-XdaSOF' },
-        { source: 'airbnb', score: 5, scale: 5, count: 9, url: 'https://www.airbnb.gr/rooms/1251493509581383775' },
-        { source: 'google', score: 5, scale: 5, count: 17, url: 'https://maps.app.goo.gl/PsLtHK5NSG23bxjeA' },
+        { source: 'booking', score: 9.9, scale: 10, count: 67, url: 'https://www.booking.com/Share-XdaSOF' },
+        { source: 'airbnb', score: 5, scale: 5, count: 10, url: 'https://www.airbnb.gr/rooms/1251493509581383775' },
+        { source: 'google', score: 5, scale: 5, count: 18, url: 'https://maps.app.goo.gl/PsLtHK5NSG23bxjeA' },
       ],
     },
     {
@@ -370,9 +370,9 @@ window.COMFY = {
           text: 'Everything was beautiful. Beautiful and cozy apartment, plenty of space for a big family. Clean, warm, situated in an area with a lot of places where you can eat.' },
       ],
       ratings: [
-        { source: 'booking', score: 9.7, scale: 10, count: 44, url: 'https://www.booking.com/Share-3Y76pA' },
-        { source: 'airbnb', score: 4.97, scale: 5, count: 34, url: 'https://www.airbnb.gr/rooms/769218011856546126' },
-        { source: 'google', score: 5, scale: 5, count: 5, url: 'https://maps.app.goo.gl/9EQoVmKcsPJFKXEv9' },
+        { source: 'booking', score: 9.7, scale: 10, count: 45, url: 'https://www.booking.com/Share-3Y76pA' },
+        { source: 'airbnb', score: 4.97, scale: 5, count: 37, url: 'https://www.airbnb.gr/rooms/769218011856546126' },
+        { source: 'google', score: 4.9, scale: 5, count: 9, url: 'https://maps.app.goo.gl/9EQoVmKcsPJFKXEv9' },
       ],
     },
     {
@@ -433,7 +433,7 @@ window.COMFY = {
           text: 'Υπέροχο διαμέρισμα, με καλή τοποθεσία και εξοπλισμένο με όλα τα απαραίτητα για τη διαμονή. Μας άρεσαν όλα. Η οικοδέσποινα είναι φιλική και πάντα διαθέσιμη. Σίγουρα θα επιστρέψουμε αν έχουμε την ευκαιρία.' },
       ],
       ratings: [
-        { source: 'booking', score: 9.8, scale: 10, count: 56, url: 'https://www.booking.com/Share-Kdcena' },
+        { source: 'booking', score: 9.8, scale: 10, count: 57, url: 'https://www.booking.com/Share-Kdcena' },
         { source: 'airbnb', score: 4.96, scale: 5, count: 27, url: 'https://www.airbnb.gr/rooms/628059743946227371' },
         { source: 'google', score: 4.9, scale: 5, count: 47, url: 'https://maps.app.goo.gl/rFHc8WcvikyuNe837' },
       ],
