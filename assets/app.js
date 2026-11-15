@@ -488,6 +488,7 @@
       h('section', {}, h('h2', {}, t('about_stay')), factsList(p), h('p', { class: 'desc' }, L(p.description))),
       h('section', {}, h('h2', {}, t('amenities')),
         h('ul', { class: 'amenity-list' }, (p.amenities || []).map((a) => h('li', {}, t('amenity_' + a))))),
+      availabilitySection(p),
       reviewsSection(p),
       h('section', { class: 'practical' }, h('h2', {}, t('practical')),
         h('dl', {},
@@ -512,6 +513,108 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(([e]) => bar.classList.toggle('is-hidden', e.isIntersecting), { threshold: 0 }).observe($('#book'));
     }
+  }
+
+  // ─── Ημερολόγιο διαθεσιμότητας και τιμών (μόνο για ενημέρωση) ───
+  // Διαθεσιμότητα: assets/availability.json (ενημερώνεται αυτόματα από Airbnb + Booking)
+  // Τιμές και ελάχιστη διαμονή: C.rates στο config.js
+  let availPromise = null;
+  function loadAvailability() {
+    if (!availPromise) {
+      const stamp = Math.floor(Date.now() / 600000); // νέα έκδοση κάθε 10 λεπτά
+      availPromise = fetch(`${ROOT}assets/availability.json?${stamp}`, { cache: 'no-cache' })
+        .then((r) => (r.ok ? r.json() : Promise.reject(new Error('http ' + r.status))));
+    }
+    return availPromise;
+  }
+
+  function rateFor(p, d) {
+    return ((C.rates && C.rates[p.id]) || []).find((r) => r.from <= d && d <= r.to) || null;
+  }
+
+  function priceFor(rate, guests) {
+    if (!rate || !rate.price) return null;
+    if (rate.price[guests] != null) return rate.price[guests];
+    return null;
+  }
+
+  function availabilitySection(p) {
+    const rates = (C.rates && C.rates[p.id]) || [];
+    const tdy = today();
+    const state = { month: tdy.slice(0, 7) + '-01', guests: Math.min(2, p.maxGuests || 2), blocked: null, updated: null, error: false };
+    const calBox = h('div', { class: 'cal avail-cal' });
+    const guestsSel = h('select', { id: 'avail-guests', onchange: () => { state.guests = Number(guestsSel.value); render(); } },
+      Array.from({ length: p.maxGuests || 2 }, (_, i) => h('option', { value: i + 1 }, String(i + 1))));
+    guestsSel.value = String(state.guests);
+    const info = h('div', { class: 'avail-info' });
+
+    function render() {
+      const first = state.month;
+      const startMonth = tdy.slice(0, 7) + '-01';
+      const y = Number(first.slice(0, 4)); const m = Number(first.slice(5, 7));
+      const daysIn = new Date(Date.UTC(y, m, 0)).getUTCDate();
+      const lead = (parseD(first).getUTCDay() + 6) % 7; // Δευτέρα πρώτη
+      const dows = Array.from({ length: 7 }, (_, i) => fmtDate(addDays('2024-01-01', i), { weekday: 'narrow' }));
+      const grid = h('div', { class: 'cal-grid', role: 'grid' }, dows.map((d) => h('div', { class: 'cal-dow', 'aria-hidden': 'true' }, d)));
+      for (let i = 0; i < lead; i++) grid.append(h('div'));
+      for (let day = 1; day <= daysIn; day++) {
+        const d = `${first.slice(0, 8)}${String(day).padStart(2, '0')}`;
+        const past = d < tdy;
+        const taken = !past && state.blocked ? isTakenNight(state.blocked, d) : false;
+        const price = !past && !taken && state.blocked ? priceFor(rateFor(p, d), state.guests) : null;
+        const cls = ['avail-day'];
+        if (past) cls.push('past');
+        if (taken) cls.push('taken');
+        if (!past && !taken && state.blocked) cls.push('free');
+        if (d === tdy) cls.push('today');
+        const label = fmtDate(d, { weekday: 'long', day: 'numeric', month: 'long' }) +
+          (taken ? ` — ${t('cal_legend_taken')}` : !past && state.blocked ? ` — ${t('avail_free')}${price != null ? ', ' + money(price) : ''}` : '');
+        grid.append(h('div', { class: cls.join(' '), role: 'gridcell', 'aria-label': label },
+          h('span', { class: 'n' }, String(day)),
+          price != null ? h('span', { class: 'p' }, money(price)) : null));
+      }
+      const monthLabel = new Intl.DateTimeFormat(locale(), { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(parseD(first));
+      const prevM = iso(new Date(Date.UTC(y, m - 2, 1)));
+      const nextM = iso(new Date(Date.UTC(y, m, 1)));
+      calBox.replaceChildren(
+        h('div', { class: 'cal-top' },
+          h('button', { class: 'cal-nav', type: 'button', 'aria-label': t('cal_prev'), disabled: first <= startMonth, onclick: () => { state.month = prevM; render(); } }, '‹'),
+          h('b', { 'aria-live': 'polite' }, monthLabel),
+          h('button', { class: 'cal-nav', type: 'button', 'aria-label': t('cal_next'), disabled: diff(tdy, nextM) > 365, onclick: () => { state.month = nextM; render(); } }, '›')),
+        state.error ? h('p', { class: 'hint' }, t('avail_error')) : grid,
+      );
+
+      // Ελάχιστη διαμονή ανά περίοδο και σημείωση για τις τιμές
+      const last = iso(new Date(Date.UTC(y, m, 0)));
+      const periods = rates.filter((r) => r.to >= first && r.from <= last && r.to >= tdy);
+      const priced = periods.length > 0;
+      info.replaceChildren(
+        h('p', { class: 'avail-legend' },
+          h('span', { class: 'sw free' }), ' ', t('avail_free'), '  ',
+          h('span', { class: 'sw taken' }), ' ', t('cal_legend_taken')),
+        periods.length ? h('p', {}, h('b', {}, t('avail_min'), ': '),
+          periods.map((r) => `${fmtDate(r.from < tdy ? tdy : r.from)} – ${fmtDate(r.to)}: ${nightsLabel(r.minNights)}`).join(' · ')) : null,
+        h('p', { class: 'hint' }, priced ? t('avail_note') : t('avail_ask')),
+      );
+    }
+
+    loadAvailability().then((data) => {
+      const list = (data.properties && data.properties[p.id]) || null;
+      if (!list) { state.error = true; } else {
+        state.blocked = list.map(([start, end]) => ({ start, end }));
+        state.updated = data.updated || null;
+      }
+      section.hidden = false;
+      render();
+    }).catch(() => { section.hidden = true; }); // χωρίς αρχείο διαθεσιμότητας δεν δείχνουμε το ημερολόγιο
+    render();
+
+    const section = h('section', { class: 'avail', id: 'availability' },
+      h('h2', {}, t('avail_title')),
+      h('label', { class: 'field avail-guests' }, h('span', {}, t('guests')), guestsSel),
+      calBox, info);
+    section.hidden = true; // εμφανίζεται μόλις φορτώσει η διαθεσιμότητα
+    return section;
   }
 
   // Πάνελ κράτησης χωρίς online πληρωμή: Booking.com, Airbnb, τηλέφωνο, email
