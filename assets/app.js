@@ -543,12 +543,68 @@
   function availabilitySection(p) {
     const rates = (C.rates && C.rates[p.id]) || [];
     const tdy = today();
-    const state = { month: tdy.slice(0, 7) + '-01', guests: Math.min(2, p.maxGuests || 2), blocked: null, updated: null, error: false };
+    const state = { month: tdy.slice(0, 7) + '-01', guests: Math.min(2, p.maxGuests || 2), blocked: null, error: false, checkin: null, checkout: null, msg: '' };
     const calBox = h('div', { class: 'cal avail-cal' });
     const guestsSel = h('select', { id: 'avail-guests', onchange: () => { state.guests = Number(guestsSel.value); render(); } },
       Array.from({ length: p.maxGuests || 2 }, (_, i) => h('option', { value: i + 1 }, String(i + 1))));
     guestsSel.value = String(state.guests);
+    const summary = h('div', { class: 'avail-summary', 'aria-live': 'polite' });
     const info = h('div', { class: 'avail-info' });
+
+    const taken = (d) => (state.blocked ? isTakenNight(state.blocked, d) : false);
+    // Μπορεί να είναι ημέρα αναχώρησης: όλες οι νύχτες από την άφιξη ως την προηγούμενη μέρα είναι ελεύθερες
+    const canCheckout = (d) => state.checkin && d > state.checkin && !overlaps(state.blocked || [], state.checkin, d);
+
+    function pick(d) {
+      state.msg = '';
+      if (!state.checkin || state.checkout || d <= state.checkin) {
+        if (taken(d)) return;
+        state.checkin = d; state.checkout = null;
+      } else if (canCheckout(d)) {
+        const r = rateFor(p, state.checkin);
+        const min = (r && r.minNights) || p.minNights || 1;
+        if (diff(state.checkin, d) < min) { state.msg = t('min_nights', { n: nightsLabel(min) }); render(); return; }
+        state.checkout = d;
+      } else {
+        state.msg = t('avail_overlap');
+        if (!taken(d)) { state.checkin = d; state.checkout = null; }
+      }
+      render();
+    }
+
+    function renderSummary() {
+      const parts = [];
+      if (state.msg) parts.push(h('p', { class: 'error' }, state.msg));
+      if (state.checkin && state.checkout) {
+        const n = diff(state.checkin, state.checkout);
+        let sum = 0; let missing = false;
+        for (let i = 0; i < n; i++) {
+          const pr = priceFor(rateFor(p, addDays(state.checkin, i)), state.guests);
+          if (pr == null) missing = true; else sum += pr;
+        }
+        const ciTxt = fmtDate(state.checkin, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+        const coTxt = fmtDate(state.checkout, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+        const totalTxt = missing ? t('avail_ask') : money(sum);
+        const mail = C.contact && C.contact.email
+          ? 'mailto:' + C.contact.email + '?subject=' + encodeURIComponent(t('email_subject', { name: p.name })) +
+            '&body=' + encodeURIComponent(t('avail_email_body', { name: p.name, ci: ciTxt, co: coTxt, g: state.guests, total: totalTxt }))
+          : null;
+        parts.push(
+          h('dl', { class: 'avail-dates' },
+            h('div', {}, h('dt', {}, t('checkin')), h('dd', {}, ciTxt)),
+            h('div', {}, h('dt', {}, t('checkout')), h('dd', {}, coTxt))),
+          h('p', { class: 'avail-total' },
+            h('span', {}, `${t('total')} · ${nightsLabel(n)} · ${state.guests} ${t('guests').toLowerCase()}`),
+            h('b', {}, missing ? t('avail_ask') : money(sum))),
+          !missing && n > 1 ? h('p', { class: 'hint' }, t('avail_per_night', { price: money(Math.round(sum / n)) })) : null,
+          missing ? h('p', { class: 'hint' }, t('avail_ask_part')) : null,
+          mail ? h('a', { class: 'btn btn-ochre avail-send', href: mail }, t('avail_send')) : null,
+        );
+      } else if (!state.msg && state.blocked) {
+        parts.push(h('p', { class: 'hint' }, state.checkin ? t('cal_pick_out') : t('cal_pick_in')));
+      }
+      summary.replaceChildren(...parts);
+    }
 
     function render() {
       const first = state.month;
@@ -559,19 +615,30 @@
       const dows = Array.from({ length: 7 }, (_, i) => fmtDate(addDays('2024-01-01', i), { weekday: 'narrow' }));
       const grid = h('div', { class: 'cal-grid', role: 'grid' }, dows.map((d) => h('div', { class: 'cal-dow', 'aria-hidden': 'true' }, d)));
       for (let i = 0; i < lead; i++) grid.append(h('div'));
+      const picking = state.checkin && !state.checkout;
       for (let day = 1; day <= daysIn; day++) {
         const d = `${first.slice(0, 8)}${String(day).padStart(2, '0')}`;
         const past = d < tdy;
-        const taken = !past && state.blocked ? isTakenNight(state.blocked, d) : false;
-        const price = !past && !taken && state.blocked ? priceFor(rateFor(p, d), state.guests) : null;
+        const isTaken = !past && taken(d);
+        const outOk = picking && canCheckout(d);
+        const price = !past && !isTaken && state.blocked ? priceFor(rateFor(p, d), state.guests) : null;
         const cls = ['avail-day'];
         if (past) cls.push('past');
-        if (taken) cls.push('taken');
-        if (!past && !taken && state.blocked) cls.push('free');
+        if (isTaken) cls.push('taken');
+        if (isTaken && outOk) cls.push('can-out');
+        if (!past && !isTaken && state.blocked) cls.push('free');
         if (d === tdy) cls.push('today');
+        if (d === state.checkin) cls.push('start');
+        if (d === state.checkout) cls.push('end');
+        if (state.checkin && state.checkout && d > state.checkin && d < state.checkout) cls.push('in-range');
         const label = fmtDate(d, { weekday: 'long', day: 'numeric', month: 'long' }) +
-          (taken ? ` — ${t('cal_legend_taken')}` : !past && state.blocked ? ` — ${t('avail_free')}${price != null ? ', ' + money(price) : ''}` : '');
-        grid.append(h('div', { class: cls.join(' '), role: 'gridcell', 'aria-label': label },
+          (isTaken ? ` — ${t('cal_legend_taken')}` : !past && state.blocked ? ` — ${t('avail_free')}${price != null ? ', ' + money(price) : ''}` : '');
+        grid.append(h('button', {
+          type: 'button', class: cls.join(' '), 'aria-label': label,
+          disabled: past || !state.blocked || (isTaken && !outOk),
+          'aria-pressed': d === state.checkin || d === state.checkout ? 'true' : null,
+          onclick: () => pick(d),
+        },
           h('span', { class: 'n' }, String(day)),
           price != null ? h('span', { class: 'p' }, money(price)) : null));
       }
@@ -584,19 +651,21 @@
           h('b', { 'aria-live': 'polite' }, monthLabel),
           h('button', { class: 'cal-nav', type: 'button', 'aria-label': t('cal_next'), disabled: diff(tdy, nextM) > 365, onclick: () => { state.month = nextM; render(); } }, '›')),
         state.error ? h('p', { class: 'hint' }, t('avail_error')) : grid,
+        state.checkin ? h('div', { class: 'cal-foot' }, h('span'),
+          h('button', { type: 'button', onclick: () => { state.checkin = state.checkout = null; state.msg = ''; render(); } }, t('cal_clear'))) : null,
       );
+      renderSummary();
 
       // Ελάχιστη διαμονή ανά περίοδο και σημείωση για τις τιμές
       const last = iso(new Date(Date.UTC(y, m, 0)));
       const periods = rates.filter((r) => r.to >= first && r.from <= last && r.to >= tdy);
-      const priced = periods.length > 0;
       info.replaceChildren(
         h('p', { class: 'avail-legend' },
           h('span', { class: 'sw free' }), ' ', t('avail_free'), '  ',
           h('span', { class: 'sw taken' }), ' ', t('cal_legend_taken')),
         periods.length ? h('p', {}, h('b', {}, t('avail_min'), ': '),
           periods.map((r) => `${fmtDate(r.from < tdy ? tdy : r.from)} – ${fmtDate(r.to)}: ${nightsLabel(r.minNights)}`).join(' · ')) : null,
-        h('p', { class: 'hint' }, priced ? t('avail_note') : t('avail_ask')),
+        h('p', { class: 'hint' }, periods.length ? t('avail_note') : t('avail_ask')),
       );
     }
 
@@ -604,7 +673,6 @@
       const list = (data.properties && data.properties[p.id]) || null;
       if (!list) { state.error = true; } else {
         state.blocked = list.map(([start, end]) => ({ start, end }));
-        state.updated = data.updated || null;
       }
       section.hidden = false;
       render();
@@ -614,7 +682,7 @@
     const section = h('section', { class: 'avail', id: 'availability' },
       h('h2', {}, t('avail_title')),
       h('label', { class: 'field avail-guests' }, h('span', {}, t('guests')), guestsSel),
-      calBox, info);
+      calBox, summary, info);
     section.hidden = true; // εμφανίζεται μόλις φορτώσει η διαθεσιμότητα
     return section;
   }

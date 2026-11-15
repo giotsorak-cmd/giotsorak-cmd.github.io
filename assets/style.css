@@ -643,3 +643,21 @@ html, body { overflow-x: clip; }
 .book .avail { margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
 .book .avail h2 { margin-bottom: 8px; }
 .book .avail-cal, .book .avail-info { max-width: none; }
+/* Επιλογή ημερομηνιών και σύνολο */
+button.avail-day { font: inherit; font-size: var(--step--1); border: 0; cursor: pointer; color: var(--ink); padding: 0; }
+button.avail-day:disabled { cursor: default; }
+button.avail-day.free:hover { outline: 2px solid var(--ochre); outline-offset: -2px; }
+.avail-day.taken.can-out { color: var(--ink); cursor: pointer; }
+.avail-day.in-range { background: var(--ochre-soft); }
+.avail-day.start, .avail-day.end { background: var(--ochre); color: var(--ink); }
+.avail-day.start .p, .avail-day.end .p { color: var(--ink); }
+.avail-summary { margin-top: 12px; }
+.avail-summary .error { color: #a3261b; font-size: var(--step--1); }
+.avail-dates { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 10px; }
+.avail-dates div { padding: 8px 12px; }
+.avail-dates div + div { border-left: 1px solid var(--line); }
+.avail-dates dt { color: var(--muted); font-size: 0.75rem; }
+.avail-dates dd { margin: 0; font-weight: 600; font-size: var(--step--1); }
+.avail-total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 0; font-size: var(--step--1); }
+.avail-total b { font-size: var(--step-1); }
+.avail-send { width: 100%; margin-top: 12px; }
