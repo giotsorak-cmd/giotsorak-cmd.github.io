@@ -486,7 +486,6 @@
 
     $('#prop-main').replaceChildren(
       h('section', {}, h('h2', {}, t('about_stay')), factsList(p), h('p', { class: 'desc' }, L(p.description))),
-      availabilitySection(p),
       h('section', {}, h('h2', {}, t('amenities')),
         h('ul', { class: 'amenity-list' }, (p.amenities || []).map((a) => h('li', {}, t('amenity_' + a))))),
       reviewsSection(p),
@@ -503,6 +502,9 @@
     );
 
     if (DIRECT) initBooking(p); else initContact(p);
+    // Ημερολόγιο διαθεσιμότητας & τιμών πάνω από τις επιλογές κράτησης
+    $('#book').prepend(availabilitySection(p));
+    $('#book').classList.add('has-avail');
 
     // Μπάρα κράτησης στο κινητό: φαίνεται μέχρι να εμφανιστεί η φόρμα κράτησης
     const bar = h('div', { class: 'bookbar', role: 'region', 'aria-label': t('book_title') },
